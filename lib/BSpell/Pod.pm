@@ -10,29 +10,8 @@ sub new {
     bless {bspell => BSpell->new()}, $class;
 }
 
- 
-sub check_line {
-    my ($self, $line) = @_;
-
-    my @bad_words;
-    for ( grep /\S/, split /[\/`"><': \t,.()?;!-]+/, $line) {
-        next if /^[0-9]+$/;
-
-        s/\n//;
-        $self->{bspell}->is_good_word($_)
-            or push @bad_words, $_;
-    }
-    return @bad_words;
-}
- 
-
-sub check_file {
-    my ($self, $filename) = @_;
-
-    local $Pod::POM::DEFAULT_VIEW = 'BSpell::Pod::POM::View::TextBasic';;
-    my $parser = Pod::POM->new();
-    my $pom = $parser->parse_file($filename)
-        or die $parser->error;
+sub _check_pom {
+    my ($self, $pom) = @_;
 
     for my $for ($pom->for) {
         if ($for->format eq 'stopwords') {
@@ -44,14 +23,33 @@ sub check_file {
     my @rv;
     for my $text ( split /[\n\r\f]+/, scalar $pom->content() ) {
         $text = $self->{bspell}->clean_text($text);
-        my @err = $self->check_line($text);
+        my @err = $self->{bspell}->check_line($text);
         if (@err) {
             push @rv, [$line, @err];
         }
         $line++;
     }
-
     return @rv;
+}
+
+sub check_file {
+    my ($self, $filename) = @_;
+
+    local $Pod::POM::DEFAULT_VIEW = 'BSpell::Pod::POM::View::TextBasic';;
+    my $parser = Pod::POM->new();
+    my $pom = $parser->parse_file($filename)
+        or die $parser->error;
+    return $self->_check_pom($pom);
+}
+
+sub check_text {
+    my ($self, $text) = @_;
+
+    local $Pod::POM::DEFAULT_VIEW = 'BSpell::Pod::POM::View::TextBasic';;
+    my $parser = Pod::POM->new();
+    my $pom = $parser->parse_text($text)
+        or die $parser->error;
+    return $self->_check_pom($pom);
 }
 
 {

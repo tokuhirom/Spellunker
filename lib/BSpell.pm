@@ -3,7 +3,7 @@ use strict;
 use warnings FATAL => 'all';
 use utf8;
 
-our $VERSION = "0.01";
+use version; our $VERSION = version->declare("v0.0.1");
 
 use BSpell::WordList;
 use Lingua::EN::Inflect qw();
@@ -22,10 +22,6 @@ sub new {
     my $self = bless {}, $class;
     $self->add_stopwords(BSpell::WordList->load_word_list);
     $self->load_user_dict();
-    $self->add_stopwords(qw(
-        I
-        a
-    ));
     return $self;
 }
 
@@ -55,6 +51,15 @@ sub add_stopwords {
 sub is_good_word {
     my ($self, $word) = @_;
     return 0 unless defined $word;
+
+    # 19xx 2xx
+    return 1 if $word =~ /^[0-9]+(xx|yy)$/;
+
+    # Method name
+    return 1 if $word =~ /\A([a-zA-Z0-9]+_)+[a-zA-Z0-9]+\z/;
+
+    # Ignore 3 or 4 capital letter words like RFC, IETF.
+    return 1 if $word =~ /\A[A-Z]{3,4}\z/;
 
     # "foo" - quoted word
     if (my ($body) = ($word =~ /\A"(.+)"\z/)) {
@@ -87,6 +92,24 @@ sub is_good_word {
     return 0;
 }
 
+sub check_line {
+    my ($self, $line) = @_;
+
+    my @bad_words;
+    for ( grep /\S/, split /[\|*=\[\]\/`"><': \t,.()?;!-]+/, $line) {
+        s/\n//;
+
+        next if /^[0-9]+$/;
+        next if /^[A-Za-z]$/; # skip single character
+        next if /^[%\$\@*][A-Za-z_][A-Za-z0-9_]*$/; # perl variable
+
+
+        $self->is_good_word($_)
+            or push @bad_words, $_;
+    }
+    return @bad_words;
+}
+
 sub clean_text {
     my ($self, $text) = @_;
     return unless $text;
@@ -108,7 +131,7 @@ __END__
 
 =head1 NAME
 
-BSpell - It's new $module
+BSpell - It's new module
 
 =head1 DESCRIPTION
 
