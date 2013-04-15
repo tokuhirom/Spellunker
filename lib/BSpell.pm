@@ -96,7 +96,7 @@ sub check_line {
     my ($self, $line) = @_;
 
     my @bad_words;
-    for ( grep /\S/, split /[\|*=\[\]\/`"><': \t,.()?;!-]+/, $line) {
+    for ( grep /\S/, split /[~\|*=\[\]\/`"><': \t,.()?;!-]+/, $line) {
         s/\n//;
 
         next if /^[0-9]+$/;

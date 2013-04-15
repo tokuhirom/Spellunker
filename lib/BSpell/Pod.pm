@@ -10,26 +10,24 @@ sub new {
     bless {bspell => BSpell->new()}, $class;
 }
 
-sub _check_pom {
-    my ($self, $pom) = @_;
+sub _check_parser {
+    my ($self, $parser) = @_;
 
     # '=for stopwords'
-    for my $for ($pom->for) {
-        if ($for->format eq 'stopwords') {
-            $self->{bspell}->add_stopwords(split /\s+/, $for->text);
-        }
+    for my $stopwords (@{$parser->stopwords}) {
+        $self->{bspell}->add_stopwords(split /\s+/, $stopwords);
     }
 
-    my $content = BSpell::Pod::POM::View::TextBasic->print($pom);
+    my $lines = $parser->lines;
     my $line = 0;
     my @rv;
-    for my $text ( split /[\n\r\f]+/, scalar $content ) {
+    for my $line ( @$lines ) {
+        my $text = $line->[1];
         $text = $self->{bspell}->clean_text($text);
         my @err = $self->{bspell}->check_line($text);
         if (@err) {
-            push @rv, [$line, @err];
+            push @rv, [$line->[0], @err];
         }
-        $line++;
     }
     return @rv;
 }
@@ -37,202 +35,88 @@ sub _check_pom {
 sub check_file {
     my ($self, $filename) = @_;
 
-    my $parser = Pod::POM->new();
-    my $pom = $parser->parse_file($filename)
-        or die $parser->error;
-    return $self->_check_pom($pom);
+    my $parser = BSpell::Pod::Parser->new();
+    $parser->parse_file($filename);
+    $self->_check_parser($parser);
 }
 
 sub check_text {
     my ($self, $text) = @_;
 
-    my $parser = Pod::POM->new();
-    my $pom = $parser->parse_text($text)
-        or die $parser->error;
-    return $self->_check_pom($pom);
+    my $parser = BSpell::Pod::Parser->new();
+    $parser->parse_text($text);
+    $self->_check_parser($parser);
 }
 
 {
-    # https://metacpan.org/module/Pod::POM::View::TextBasic
-    package BSpell::Pod::POM::View::TextBasic;
-    use parent qw( Pod::POM::View );
-    use Pod::POM::Constants qw(:seq);
-    
-    sub new {
-        my $class = shift;
-        my $args  = ref $_[0] eq 'HASH' ? shift : { @_ };
-        bless { 
-            %$args,
-        }, $class;
-    }
+    package BSpell::Pod::Parser;
+    use parent qw(Pod::Simple::Methody);
 
-    sub view {
-        my ( $self, $type, $item ) = @_;
+    use Carp ();
 
-        if ( $type =~ s/^seq_// ) {
-            return $item;
-        }
-        elsif ( UNIVERSAL::isa( $item, 'HASH' ) ) {
-            if ( defined $item->{content} ) {
-                return $item->{content}->present($self);
-            }
-            elsif ( defined $item->{text} ) {
-                my $text = $item->{text};
-                return ref $text ? $text->present($self) : $text;
-            }
-            else {
-                return '';
-            }
-        }
-        elsif ( !ref $item ) {
-            return $item;
-        }
-        else {
-            return '';
-        }
-    }
-
-
-    sub view_head1 {
-        my ($self, $head1) = @_;
-
-        my $title = $head1->title->present($self);
-        my $output = "$title\n" . $head1->content->present($self);
-
-        return $output;
-    }
-
-
-    sub view_head2 {
-        my ($self, $head2) = @_;
-
-        my $title = $head2->title->present($self);
-        my $output = "$title\n" . $head2->content->present($self);
-
-        return $output;
-    }
-
-
-    sub view_head3 {
-        my ($self, $head3) = @_;
-        my $title = $head3->title->present($self);
-        my $output = "$title\n" . $head3->content->present($self);
-
-        return $output;
-    }
-
-
-    sub view_head4 {
-        my ($self, $head4) = @_;
-        my $title = $head4->title->present($self);
-        my $output = "$title\n" . $head4->content->present($self);
-        return $output;
-    }
-
-    #------------------------------------------------------------------------
-    # view_over($self, $over)
-    #
-    # Present an =over block - this is a blockquote if there are no =items
-    # within the block.
-    #------------------------------------------------------------------------
-
-    sub view_over {
-        my ($self, $over) = @_;
-
-        if (@{$over->item}) {
-            return $over->content->present($self);
-        }
-        else {
-            my $content = $over->content->present($self);
-            return $content;
-        }
-    }
-
-    sub view_item {
-        my ($self, $item) = @_;
-        my $pad = ' ';
-        my $title = $item->title->present($self);
-        my $content = $item->content->present($self);
-        return "$title\n\n$content";
-    }
-
-
-    sub view_for {
-        my ($self, $for) = @_;
-        return '' unless $for->format() =~ /\btext\b/;
-        return $for->text() . "\n\n";
-    }
-
-        
-    sub view_begin {
-        my ($self, $begin) = @_;
-        return '' unless $begin->format() =~ /\btext\b/;
-        return $begin->content->present($self);
-    }
-
-        
-    sub view_textblock {
-        my ($self, $text) = @_;
-        $text =~ s/\s+/ /mg;
-        return $text . "\n\n";
-    }
-
-
-    # <pre>
-    sub view_verbatim {
-        my ($self, $text) = @_;
-        return ''; # ignore
-    }
-
-
-    sub view_seq_bold {
-        my ($self, $text) = @_;
-        return $text;
-    }
-
-
-    sub view_seq_italic {
-        my ($self, $text) = @_;
-        return $text;
-    }
-
-
-    # C<>
-    sub view_seq_code {
-        my ($self, $text) = @_;
-        return ''; # Ignore.
-    }
-
-
-    sub view_seq_file {
-        my ($self, $text) = @_;
-        return '';# Ignore.
-    }
-
-    my $entities = {
-        gt   => '>',
-        lt   => '<',
-        amp  => '&',
-        quot => '"',
+    use constant {
+        MODE_STOPWORDS => 1,
+        MODE_IGNORE    => 2,
+        MODE_NORMAL    => 3,
     };
 
-    # E<gt>
-    sub view_seq_entity {
-        my ($self, $entity) = @_;
-        return ''; # Ignore.
+    sub new {
+        my $self = shift;
+        my $new  = $self->SUPER::new(@_);
+        $new->{'output_fh'} ||= *STDOUT{IO};
+        $new->{mode} = 'normal';
+        $new->accept_target_as_text(qw( text plaintext plain stopwords ));
+        $new->nix_X_codes(1);
+        $new->nbsp_for_S(1);
+        return $new;
     }
 
-    sub view_seq_index {
-        return '';
+    sub stopwords { $_[0]->{stopwords} || [] }
+    sub lines { $_[0]->{lines} || [] }
+
+    sub handle_text {
+        my ($self, $text) = @_;
+        if ($self->{mode} eq MODE_IGNORE) {
+            # nop.
+        } elsif ($self->{mode} eq MODE_STOPWORDS) {
+            push @{$self->{stopwords}}, $text;
+        } else {
+            push @{$self->{lines}}, [
+                $self->line_count, $text
+            ];
+        }
     }
 
-    # L<>
-    sub view_seq_link {
-        my ($self, $link) = @_;
-        return '';
+    sub start_encoding { $_[0]->{mode} = MODE_IGNORE }
+    sub end_encoding   { $_[0]->{mode} = MODE_NORMAL }
+
+    sub start_for {
+        my ($self, $flags) = @_;
+        if ($flags->{target} eq 'stopwords') {
+            $self->{mode} = MODE_STOPWORDS;
+        }
+    }
+
+    sub end_for {
+        my ($self, $flags) = @_;
+        $self->{mode} = MODE_NORMAL;
+    }
+
+    for (
+        'code',
+        'Verbatim',
+        'C', # C<>
+        'L', # L<>
+    ) {
+        no strict 'refs';
+        *{"start_$_"} = sub { $_[0]->{mode} = MODE_IGNORE };
+        *{"end_$_"}   = sub { $_[0]->{mode} = MODE_NORMAL };
     }
 }
 
+# Note:
+# Q. Why not Pod::POM?
+# A. I can't handle line number by Pod::POM.
 
 1;
 

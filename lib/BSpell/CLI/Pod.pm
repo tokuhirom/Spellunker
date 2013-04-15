@@ -37,6 +37,7 @@ sub run {
                     print "$filename: $lineno: $_\n";
                 }
             }
+            $fail++ if @err;
         }
         exit $fail;
     } else {
