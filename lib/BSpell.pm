@@ -121,6 +121,7 @@ sub clean_text {
     $text =~ s/(\w+::)+\w+/ /gs;    # Remove references to Perl modules
     $text =~ s/\s+/ /gs;
     $text =~ s/[()\@,;:"\/.]+/ /gs;     # Remove punctuation
+    $text =~ s/you'll/ /gs;
 
     return $text;
 }

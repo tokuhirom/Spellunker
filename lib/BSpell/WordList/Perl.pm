@@ -26,12 +26,15 @@ sub load_word_list {
         OSX
         XP
         homebrew
+        svn
+        CVS
     );
     my @web_service_name = qw(
         lingr
         gmail
     );
     my @perl_words = qw(
+        blib
         perlbrew
         cpanm
         plenv
