@@ -8,6 +8,14 @@ our $VERSION = "0.01";
 use BSpell::WordList;
 use Lingua::EN::Inflect qw();
 use File::Spec ();
+use Regexp::Common qw /URI/;
+
+# Ref http://www.din.or.jp/~ohzaki/mail_regex.htm#Simplify
+my $MAIL_REGEX = (
+    q{(?:[-!#-'*+/-9=?A-Z^-~]+(?:\.[-!#-'*+/-9=?A-Z^-~]+)*|"(?:[!#-\[\]-} .
+    q{~]|\\\\[\x09 -~])*")@[-!#-'*+/-9=?A-Z^-~]+(?:\.[-!#-'*+/-9=?A-Z^-~]+} .
+    q{)*}
+);
 
 sub new {
     my $class = shift;
@@ -77,6 +85,20 @@ sub is_good_word {
     }
 
     return 0;
+}
+
+sub clean_text {
+    my ($self, $text) = @_;
+    return unless $text;
+
+    $text =~ s!<$MAIL_REGEX>|$MAIL_REGEX!!; # Remove E-mail address.
+    $text =~ s!$RE{URI}{HTTP}!!g; # Remove HTTP URI
+    $text =~ s!\(C\)!!gi; # Copyright mark
+    $text =~ s/(\w+::)+\w+/ /gs;    # Remove references to Perl modules
+    $text =~ s/\s+/ /gs;
+    $text =~ s/[()\@,;:"\/.]+/ /gs;     # Remove punctuation
+
+    return $text;
 }
 
 1;
