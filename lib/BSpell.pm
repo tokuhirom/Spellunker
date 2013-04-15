@@ -2,6 +2,7 @@ package BSpell;
 use strict;
 use warnings FATAL => 'all';
 use utf8;
+use 5.008001;
 
 use version; our $VERSION = version->declare("v0.0.1");
 

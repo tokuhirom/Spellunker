@@ -1,10 +1,14 @@
 # NAME
 
-BSpell - It's new $module
+BSpell - It's new module
 
 # DESCRIPTION
 
 BSpell is ...
+
+# HOW DO I USE CUSTOM DICTIONARY?
+
+You can put your personal dictionary at `$HOME/.bspell.en`.
 
 # LICENSE
 

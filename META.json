@@ -1,5 +1,5 @@
 {
-   "abstract" : "It's new $module",
+   "abstract" : "It's new module",
    "author" : [
       "tokuhirom <tokuhirom@gmail.com>"
    ],
@@ -43,7 +43,9 @@
       },
       "runtime" : {
          "requires" : {
-            "Regexp::Common" : "0"
+            "Pod::Simple" : "0",
+            "Regexp::Common" : "0",
+            "perl" : "5.008001"
          }
       },
       "test" : {
@@ -53,5 +55,5 @@
       }
    },
    "release_status" : "unstable",
-   "version" : "0.01"
+   "version" : "v0.0.1"
 }
