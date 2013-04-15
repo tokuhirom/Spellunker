@@ -1,4 +1,4 @@
-package Test::Spelling::Lite;
+package Test::BSpell;
 use strict;
 use warnings;
 use 5.008005;

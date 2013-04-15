@@ -92,6 +92,10 @@ BSpell - It's new $module
 
 BSpell is ...
 
+=head1 HOW DO I USE CUSTOM DICTIONARY?
+
+You can put your personal dictionary at C<$HOME/.bspell.en>.
+
 =head1 LICENSE
 
 Copyright (C) tokuhirom
