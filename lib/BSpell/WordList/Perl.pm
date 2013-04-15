@@ -25,12 +25,16 @@ sub load_word_list {
         TODO
         OSX
         XP
+        homebrew
     );
     my @web_service_name = qw(
         lingr
         gmail
     );
     my @perl_words = qw(
+        perlbrew
+        cpanm
+        plenv
         undef
         path_query
         no_proxy

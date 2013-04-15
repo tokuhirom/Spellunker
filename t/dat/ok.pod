@@ -1,3 +1,5 @@
+=pod
+
 =for stopwords gah
 
 This is a duck.
