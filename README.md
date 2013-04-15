@@ -1,14 +1,10 @@
 # NAME
 
-Test::Spelling::Lite - It's new $module
-
-# SYNOPSIS
-
-    use Test::Spelling::Lite;
+BSpell - It's new $module
 
 # DESCRIPTION
 
-Test::Spelling::Lite is ...
+BSpell is ...
 
 # LICENSE
 

@@ -23,8 +23,8 @@ my $builder = Module::Build->new(
     },
 
     no_index    => { 'directory' => [ 'inc' ] },
-    name        => 'Test-Spelling-Lite',
-    module_name => 'Test::Spelling::Lite',
+    name        => 'BSpell',
+    module_name => 'BSpell',
 
     script_files => [glob('script/*'), glob('bin/*')],
 
