@@ -1,15 +1,15 @@
-package Test::Spelling::Lite::Engine;
+package BSpell;
 use strict;
 use warnings;
 use utf8;
 
-use Test::Spelling::Lite::WordList;
+use BSpell::WordList;
 use Lingua::EN::Inflect qw();
 
 sub new {
     my $class = shift;
     my $self = bless {}, $class;
-    $self->add_stopwords(Test::Spelling::Lite::WordList->load_word_list);
+    $self->add_stopwords(BSpell::WordList->load_word_list);
     return $self;
 }
 

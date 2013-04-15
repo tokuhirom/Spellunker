@@ -1,4 +1,4 @@
-package Test::Spelling::Lite::WordList;
+package BSpell::WordList::Enable1;
 use strict;
 use warnings;
 use utf8;
@@ -6,11 +6,13 @@ use utf8;
 # Do not use this class directly.
 our @_CACHE;
 
+# From https://code.google.com/p/dotnetperls-controls/downloads/detail?name=enable1.tx
+
 sub load_word_list {
     unless (@_CACHE) {
         while (<DATA>) {
             chomp;
-            push @_CACHE, $_;
+            push @_CACHE, $_ for split /\s+/, $_;
         }
     }
     return @_CACHE;
@@ -172838,4 +172840,3 @@ zymurgies
 zymurgy
 zyzzyva
 zyzzyvas
-HTTPS

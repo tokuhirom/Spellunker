@@ -5,7 +5,8 @@ use Test::Spelling::Lite::Engine;
 
 my $engine = Test::Spelling::Lite::Engine->new();
 while (<>) {
-    for ( grep /\S/, split /[ \t,.()?]+/, $_) {
+    for ( grep /\S/, split /[ \t,.()?;!]+/, $_) {
+        s/\n//;
         $engine->is_good_word($_)
             or print "Bad: $_\n";
     }
