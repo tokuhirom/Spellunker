@@ -1,0 +1,13 @@
+#!/usr/bin/env perl
+use strict;
+use warnings;
+use Test::Spelling::Lite::Engine;
+
+my $engine = Test::Spelling::Lite::Engine->new();
+while (<>) {
+    for ( grep /\S/, split /[ \t,.()?]+/, $_) {
+        $engine->is_good_word($_)
+            or print "Bad: $_\n";
+    }
+}
+
