@@ -10,12 +10,17 @@ sub new {
     bless {spellunker => Spellunker->new()}, $class;
 }
 
+sub add_stopwords {
+    my $self = shift;
+    $self->{spellunker}->add_stopwords(@_);
+}
+
 sub _check_parser {
     my ($self, $parser) = @_;
 
     # '=for stopwords'
     for my $stopwords (@{$parser->stopwords}) {
-        $self->{spellunker}->add_stopwords(split /\s+/, $stopwords);
+        $self->add_stopwords(split /\s+/, $stopwords);
     }
 
     my $lines = $parser->lines;
