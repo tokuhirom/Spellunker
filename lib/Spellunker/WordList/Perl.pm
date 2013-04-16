@@ -27,6 +27,7 @@ sub load_word_list {
         XP
         homebrew
         svn
+        gitignore
         CVS
     );
     my @web_service_name = qw(
@@ -35,6 +36,9 @@ sub load_word_list {
     );
     my @perl_words = qw(
         CPANfile
+        cpanfile
+        mymeta
+        PL
         blib
         perlbrew
         cpanm
