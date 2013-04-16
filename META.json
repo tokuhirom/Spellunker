@@ -38,7 +38,7 @@
             "Test::CPAN::Meta" : "0",
             "Test::MinimumVersion" : "0.10108",
             "Test::Pod" : "1.41",
-            "Test::Spellunker" : "0"
+            "Test::Spellunker" : "v0.0.3"
          }
       },
       "runtime" : {
@@ -72,5 +72,5 @@
          "web" : "https://github.com/tokuhirom/Spellunker"
       }
    },
-   "version" : "v0.0.2"
+   "version" : "v0.0.3"
 }
