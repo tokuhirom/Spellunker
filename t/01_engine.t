@@ -11,5 +11,7 @@ for (qw(good How darken lived studies How AUTHORS Dan's 19xx 2xx remove_header R
 }
 ok(!$engine->check_word('gaaaaaa'));
 
+is(0+$engine->check_line("It isn't"), 0);
+
 done_testing;
 

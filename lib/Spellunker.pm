@@ -132,6 +132,7 @@ sub _clean_text {
     $text =~ s/\s+/ /gs;
     $text =~ s/[()\@,;:"\/.]+/ /gs;     # Remove punctuation
     $text =~ s/you'll/you will/gs;
+    $text =~ s/\bisn't\b/is not/gs;
 
     return $text;
 }
