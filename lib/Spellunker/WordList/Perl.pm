@@ -34,6 +34,7 @@ sub load_word_list {
         gmail
     );
     my @perl_words = qw(
+        CPANfile
         blib
         perlbrew
         cpanm
