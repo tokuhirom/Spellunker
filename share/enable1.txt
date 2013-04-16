@@ -1,25 +1,3 @@
-package Spellunker::WordList::Enable1;
-use strict;
-use warnings;
-use utf8;
-
-# Do not use this class directly.
-our @_CACHE;
-
-# From https://code.google.com/p/dotnetperls-controls/downloads/detail?name=enable1.tx
-
-sub load_word_list {
-    unless (@_CACHE) {
-        while (<DATA>) {
-            chomp;
-            push @_CACHE, $_ for split /\s+/, $_;
-        }
-    }
-    return @_CACHE;
-}
-
-1;
-__DATA__
 aa
 aah
 aahed

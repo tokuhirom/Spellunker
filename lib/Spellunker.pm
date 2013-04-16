@@ -6,9 +6,10 @@ use 5.008001;
 
 use version; our $VERSION = version->declare("v0.0.1");
 
-use Spellunker::WordList;
+use Spellunker::WordList::Perl;
 use Lingua::EN::Inflect qw();
 use File::Spec ();
+use File::ShareDir ();
 use Regexp::Common qw /URI/;
 
 # Ref http://www.din.or.jp/~ohzaki/mail_regex.htm#Simplify
@@ -21,7 +22,11 @@ my $MAIL_REGEX = (
 sub new {
     my $class = shift;
     my $self = bless {}, $class;
-    $self->add_stopwords(Spellunker::WordList->load_word_list);
+    $self->add_stopwords(Spellunker::WordList::Perl->load_word_list);
+
+    # From https://code.google.com/p/dotnetperls-controls/downloads/detail?name=enable1.tx
+    $self->load_dictionary(File::Spec->catfile(File::ShareDir::dist_dir('Spellunker'), 'enable1.txt'));
+
     $self->_load_user_dict();
     return $self;
 }
