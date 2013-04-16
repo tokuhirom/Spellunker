@@ -1,0 +1,5 @@
+#!/usr/bin/env perl
+use strict;
+use warnings;
+use Spellunker::CLI::Pod;
+Spellunker::CLI::Pod->new->run();

@@ -1,4 +1,4 @@
-package BSpell::WordList::Enable1;
+package Spellunker::WordList::Enable1;
 use strict;
 use warnings;
 use utf8;

@@ -1,4 +1,4 @@
-package BSpell::WordList::Perl;
+package Spellunker::WordList::Perl;
 use strict;
 use warnings;
 use utf8;
@@ -44,7 +44,7 @@ sub load_word_list {
         max_redirects
         Perl5
         cookie_jar
-        BSpell
+        Spellunker
         XS
         Furl
         LWP

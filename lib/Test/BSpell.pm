@@ -1,16 +1,16 @@
-package Test::BSpell;
+package Test::Spellunker;
 use strict;
 use warnings;
 use 5.008001;
 
-use BSpell::Pod;
+use Spellunker::Pod;
 
 use parent qw(Exporter);
 
 use Test::Builder;
 use File::Spec;
 
-our $BSPELL = BSpell::Pod->new();
+our $BSPELL = Spellunker::Pod->new();
 
 our @EXPORT = qw(
   pod_file_spelling_ok
@@ -120,11 +120,11 @@ __END__
 
 =head1 NAME
 
-Test::BSpell - check for spelling errors in POD files
+Test::Spellunker - check for spelling errors in POD files
 
 =head1 SYNOPSIS
 
-    use Test::BSpell;
+    use Test::Spellunker;
     all_pod_files_spelling_ok();
 
 =head1 FUNCTIONS

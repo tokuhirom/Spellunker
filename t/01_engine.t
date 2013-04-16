@@ -3,9 +3,9 @@ use warnings;
 use utf8;
 use Test::More;
 
-use BSpell;
+use Spellunker;
 
-my $engine = BSpell->new();
+my $engine = Spellunker->new();
 for (qw(good How darken lived studies How AUTHORS Dan's 19xx 2xx remove_header RFC IETF)) {
     ok($engine->check_word($_), $_);
 }

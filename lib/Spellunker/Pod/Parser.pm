@@ -1,4 +1,4 @@
-package BSpell::Pod::Parser;
+package Spellunker::Pod::Parser;
 use strict;
 use warnings;
 use utf8;

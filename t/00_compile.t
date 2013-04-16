@@ -2,8 +2,8 @@ use strict;
 use Test::More;
 
 use_ok $_ for qw(
-    BSpell
-    BSpell::Pod
+    Spellunker
+    Spellunker::Pod
 );
 
 done_testing;

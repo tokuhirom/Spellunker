@@ -1,4 +1,4 @@
-package BSpell;
+package Spellunker;
 use strict;
 use warnings FATAL => 'all';
 use utf8;
@@ -6,7 +6,7 @@ use 5.008001;
 
 use version; our $VERSION = version->declare("v0.0.1");
 
-use BSpell::WordList;
+use Spellunker::WordList;
 use Lingua::EN::Inflect qw();
 use File::Spec ();
 use Regexp::Common qw /URI/;
@@ -21,7 +21,7 @@ my $MAIL_REGEX = (
 sub new {
     my $class = shift;
     my $self = bless {}, $class;
-    $self->add_stopwords(BSpell::WordList->load_word_list);
+    $self->add_stopwords(Spellunker::WordList->load_word_list);
     $self->_load_user_dict();
     return $self;
 }
@@ -30,7 +30,7 @@ sub _load_user_dict {
     my $self = shift;
     my $home = $ENV{HOME};
     return unless -d $home;
-    my $dictpath = File::Spec->catfile($home, '.bspell.en');
+    my $dictpath = File::Spec->catfile($home, '.spellunker.en');
     if (-f $dictpath) {
     }
 }
@@ -139,34 +139,34 @@ __END__
 
 =head1 NAME
 
-BSpell - Pure perl spelling checker implementation
+Spellunker - Pure perl spelling checker implementation
 
 =head1 DESCRIPTION
 
-BSpell is pure perl spelling checker implementation.
+Spellunker is pure perl spelling checker implementation.
 You can use this spelling checker as a library.
 
-And this distribution provides L<bspell> and L<bspell-pod> command.
+And this distribution provides L<spellunker> and L<spellunker-pod> command.
 
-If you want to use this spelling checker in test script, you can use L<Test::BSpell>.
+If you want to use this spelling checker in test script, you can use L<Test::Spellunker>.
 
 =head1 METHODS
 
 =over 4
 
-=item my $bspell = BSpell->new();
+=item my $spellunker = Spellunker->new();
 
 Create new instance.
 
-=item $bspell->add_stopwords(@stopwords)
+=item $spellunker->add_stopwords(@stopwords)
 
 Add some C<< @stopwords >> to the on memory dictionary.
 
-=item $bspell->check_word($word);
+=item $spellunker->check_word($word);
 
 Check the word looks good or not.
 
-=item @bad_words = $bspell->check_line($line)
+=item @bad_words = $spellunker->check_line($line)
 
 Check the text and returns bad word list.
 
@@ -174,7 +174,7 @@ Check the text and returns bad word list.
 
 =head1 HOW DO I USE CUSTOM DICTIONARY?
 
-You can put your personal dictionary at C<$HOME/.bspell.en>.
+You can put your personal dictionary at C<$HOME/.spellunker.en>.
 
 =head1 LICENSE
 

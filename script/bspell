@@ -1,5 +1,0 @@
-#!/usr/bin/env perl
-use strict;
-use warnings;
-use BSpell::CLI;
-BSpell::CLI->new()->run();

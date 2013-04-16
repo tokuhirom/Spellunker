@@ -12,7 +12,7 @@
       "url" : "http://search.cpan.org/perldoc?CPAN::Meta::Spec",
       "version" : "2"
    },
-   "name" : "BSpell",
+   "name" : "Spellunker",
    "no_index" : {
       "directory" : [
          "t",
@@ -57,13 +57,13 @@
    "release_status" : "unstable",
    "resources" : {
       "bugtracker" : {
-         "web" : "https://github.com/tokuhirom/BSpell/issues"
+         "web" : "https://github.com/tokuhirom/Spellunker/issues"
       },
-      "homepage" : "https://github.com/tokuhirom/BSpell",
+      "homepage" : "https://github.com/tokuhirom/Spellunker",
       "repository" : {
          "type" : "git",
-         "url" : "git://github.com/tokuhirom/BSpell.git",
-         "web" : "https://github.com/tokuhirom/BSpell"
+         "url" : "git://github.com/tokuhirom/Spellunker.git",
+         "web" : "https://github.com/tokuhirom/Spellunker"
       }
    },
    "version" : "v0.0.1"

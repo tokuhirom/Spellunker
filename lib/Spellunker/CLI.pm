@@ -1,9 +1,9 @@
-package BSpell::CLI;
+package Spellunker::CLI;
 use strict;
 use warnings;
 use utf8;
 
-use BSpell;
+use Spellunker;
 
 use Regexp::Common qw /URI/;
 
@@ -23,7 +23,7 @@ sub new {
 sub run {
     my $self = shift;
 
-    my $engine = BSpell->new();
+    my $engine = Spellunker->new();
     while (<>) {
         my @words = $engine->check_line($_);
         print "Bad: $_ at line $.\n" for @words;

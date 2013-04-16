@@ -1,13 +1,13 @@
-package BSpell::Pod;
+package Spellunker::Pod;
 use strict;
 use warnings;
 use utf8;
-use BSpell;
-use BSpell::Pod::Parser;
+use Spellunker;
+use Spellunker::Pod::Parser;
 
 sub new {
     my $class = shift;
-    bless {bspell => BSpell->new()}, $class;
+    bless {spellunker => Spellunker->new()}, $class;
 }
 
 sub _check_parser {
@@ -15,7 +15,7 @@ sub _check_parser {
 
     # '=for stopwords'
     for my $stopwords (@{$parser->stopwords}) {
-        $self->{bspell}->add_stopwords(split /\s+/, $stopwords);
+        $self->{spellunker}->add_stopwords(split /\s+/, $stopwords);
     }
 
     my $lines = $parser->lines;
@@ -23,7 +23,7 @@ sub _check_parser {
     my @rv;
     for my $line ( @$lines ) {
         my $text = $line->[1];
-        my @err = $self->{bspell}->check_line($text);
+        my @err = $self->{spellunker}->check_line($text);
         if (@err) {
             push @rv, [$line->[0], @err];
         }
@@ -34,7 +34,7 @@ sub _check_parser {
 sub check_file {
     my ($self, $filename) = @_;
 
-    my $parser = BSpell::Pod::Parser->new();
+    my $parser = Spellunker::Pod::Parser->new();
     $parser->parse_file($filename);
     $self->_check_parser($parser);
 }
@@ -42,7 +42,7 @@ sub check_file {
 sub check_text {
     my ($self, $text) = @_;
 
-    my $parser = BSpell::Pod::Parser->new();
+    my $parser = Spellunker::Pod::Parser->new();
     $parser->parse_string_document($text);
     $self->_check_parser($parser);
 }
