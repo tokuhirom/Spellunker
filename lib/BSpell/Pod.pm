@@ -23,7 +23,6 @@ sub _check_parser {
     my @rv;
     for my $line ( @$lines ) {
         my $text = $line->[1];
-        $text = $self->{bspell}->clean_text($text);
         my @err = $self->{bspell}->check_line($text);
         if (@err) {
             push @rv, [$line->[0], @err];
@@ -44,7 +43,7 @@ sub check_text {
     my ($self, $text) = @_;
 
     my $parser = BSpell::Pod::Parser->new();
-    $parser->parse_text($text);
+    $parser->parse_string_document($text);
     $self->_check_parser($parser);
 }
 

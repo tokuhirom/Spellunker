@@ -22,22 +22,26 @@ sub new {
     my $class = shift;
     my $self = bless {}, $class;
     $self->add_stopwords(BSpell::WordList->load_word_list);
-    $self->load_user_dict();
+    $self->_load_user_dict();
     return $self;
 }
 
-sub load_user_dict {
+sub _load_user_dict {
     my $self = shift;
     my $home = $ENV{HOME};
     return unless -d $home;
     my $dictpath = File::Spec->catfile($home, '.bspell.en');
     if (-f $dictpath) {
-        open my $fh, '<', $dictpath
-            or die "Cannot open '$dictpath' for reading: $!";
-        while (<$fh>) {
-            chomp;
-            $self->add_stopwords($_);
-        }
+    }
+}
+
+sub load_dictionary {
+    my ($self, $filename) = @_;
+    open my $fh, '<', $filename
+        or die "Cannot open '$filename' for reading: $!";
+    while (<$fh>) {
+        chomp;
+        $self->add_stopwords($_);
     }
 }
 
@@ -49,7 +53,7 @@ sub add_stopwords {
     return undef;
 }
 
-sub is_good_word {
+sub check_word {
     my ($self, $word) = @_;
     return 0 unless defined $word;
 
@@ -64,7 +68,7 @@ sub is_good_word {
 
     # "foo" - quoted word
     if (my ($body) = ($word =~ /\A"(.+)"\z/)) {
-        return $self->is_good_word($body);
+        return $self->check_word($body);
     }
 
     # Dan's
@@ -87,7 +91,7 @@ sub is_good_word {
 
     # don't
     if (my ($nt) = ($word =~ /\A(.+)n't\z/)) {
-        return $self->is_good_word($nt);
+        return $self->check_word($nt);
     }
 
     return 0;
@@ -95,6 +99,8 @@ sub is_good_word {
 
 sub check_line {
     my ($self, $line) = @_;
+
+    $line = $self->_clean_text($line);
 
     my @bad_words;
     for ( grep /\S/, split /[~\|*=\[\]\/`"><': \t,.()?;!-]+/, $line) {
@@ -105,13 +111,13 @@ sub check_line {
         next if /^[%\$\@*][A-Za-z_][A-Za-z0-9_]*$/; # perl variable
 
 
-        $self->is_good_word($_)
+        $self->check_word($_)
             or push @bad_words, $_;
     }
     return @bad_words;
 }
 
-sub clean_text {
+sub _clean_text {
     my ($self, $text) = @_;
     return unless $text;
 
@@ -121,7 +127,7 @@ sub clean_text {
     $text =~ s/(\w+::)+\w+/ /gs;    # Remove references to Perl modules
     $text =~ s/\s+/ /gs;
     $text =~ s/[()\@,;:"\/.]+/ /gs;     # Remove punctuation
-    $text =~ s/you'll/ /gs;
+    $text =~ s/you'll/you will/gs;
 
     return $text;
 }
@@ -133,11 +139,38 @@ __END__
 
 =head1 NAME
 
-BSpell - It's new module
+BSpell - Pure perl spelling checker implementation
 
 =head1 DESCRIPTION
 
-BSpell is ...
+BSpell is pure perl spelling checker implementation.
+You can use this spelling checker as a library.
+
+And this distribution provides L<bspell> and L<bspell-pod> command.
+
+If you want to use this spelling checker in test script, you can use L<Test::BSpell>.
+
+=head1 METHODS
+
+=over 4
+
+=item my $bspell = BSpell->new();
+
+Create new instance.
+
+=item $bspell->add_stopwords(@stopwords)
+
+Add some C<< @stopwords >> to the on memory dictionary.
+
+=item $bspell->check_word($word);
+
+Check the word looks good or not.
+
+=item @bad_words = $bspell->check_line($line)
+
+Check the text and returns bad word list.
+
+=back
 
 =head1 HOW DO I USE CUSTOM DICTIONARY?
 

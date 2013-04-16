@@ -25,22 +25,8 @@ sub run {
 
     my $engine = BSpell->new();
     while (<>) {
-        # Remove E-mail address.
-        s!<$mail_regex>|$mail_regex!!;
-
-        # Remove HTTP URI
-        s!$RE{URI}{HTTP}!!g;
-
-        # Copyright mark
-        s!\(C\)!!gi;
-
-        for ( grep /\S/, split /[\/`"><': \t,.()?;!-]+/, $_) {
-            next if /^[0-9]+$/;
-
-            s/\n//;
-            $engine->is_good_word($_)
-                or print "Bad: $_ at line $.\n";
-        }
+        my @words = $engine->check_line($_);
+        print "Bad: $_ at line $.\n" for @words;
     }
 }
 
