@@ -5,16 +5,6 @@ use utf8;
 
 use Spellunker;
 
-use Regexp::Common qw /URI/;
-
-# Ref http://www.din.or.jp/~ohzaki/mail_regex.htm#Simplify
-my $mail_regex = (
-    q{(?:[-!#-'*+/-9=?A-Z^-~]+(?:\.[-!#-'*+/-9=?A-Z^-~]+)*|"(?:[!#-\[\]-} .
-    q{~]|\\\\[\x09 -~])*")@[-!#-'*+/-9=?A-Z^-~]+(?:\.[-!#-'*+/-9=?A-Z^-~]+} .
-    q{)*}
-);
-
-
 sub new {
     my $class = shift;
     bless {}, $class;
