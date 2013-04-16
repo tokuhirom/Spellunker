@@ -1,5 +1,5 @@
 {
-   "abstract" : "It's new module",
+   "abstract" : "Pure perl spelling checker implementation",
    "author" : [
       "tokuhirom <tokuhirom@gmail.com>"
    ],
@@ -55,5 +55,16 @@
       }
    },
    "release_status" : "unstable",
+   "resources" : {
+      "bugtracker" : {
+         "web" : "https://github.com/tokuhirom/BSpell/issues"
+      },
+      "homepage" : "https://github.com/tokuhirom/BSpell",
+      "repository" : {
+         "type" : "git",
+         "url" : "git://github.com/tokuhirom/BSpell.git",
+         "web" : "https://github.com/tokuhirom/BSpell"
+      }
+   },
    "version" : "v0.0.1"
 }
