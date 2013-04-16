@@ -3,7 +3,6 @@ use strict;
 use warnings;
 use utf8;
 use BSpell;
-use Pod::POM;
 
 sub new {
     my $class = shift;
