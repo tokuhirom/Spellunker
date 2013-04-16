@@ -36,6 +36,7 @@ sub _load_user_dict {
     return unless -d $home;
     my $dictpath = File::Spec->catfile($home, '.spellunker.en');
     if (-f $dictpath) {
+        $self->load_dictionary($dictpath);
     }
 }
 
