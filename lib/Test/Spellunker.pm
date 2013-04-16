@@ -10,7 +10,7 @@ use parent qw(Exporter);
 use Test::Builder;
 use File::Spec;
 
-our $BSPELL = Spellunker::Pod->new();
+our $SPELLUNKER = Spellunker::Pod->new();
 
 our @EXPORT = qw(
   pod_file_spelling_ok
@@ -91,7 +91,7 @@ sub pod_file_spelling_ok {
         return;
     }
 
-    my @err = $BSPELL->check_file($file);
+    my @err = $SPELLUNKER->check_file($file);
 
     my $ok = @err == 0;
     $TEST->ok($ok, "$name");
@@ -110,7 +110,7 @@ sub pod_file_spelling_ok {
 }
 
 sub add_stopwords {
-    $BSPELL->add_stopwords(@_)
+    $SPELLUNKER->add_stopwords(@_)
 }
 
 1;
