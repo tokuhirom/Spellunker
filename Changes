@@ -2,6 +2,10 @@ Revision history for Perl extension Test-Spelling-Lite
 
 {{$NEXT}}
 
+v0.0.7 2013-04-17T07:53:04Z
+
+    - Ignore \%hashref, \@val
+
 v0.0.6 2013-04-17T05:55:03Z
 
     - Better handling for "You'll" and "doesn't" or something.
