@@ -29,6 +29,7 @@ sub load_word_list {
         svn
         gitignore
         CVS
+        RT
     );
     my @web_service_name = qw(
         lingr
@@ -37,6 +38,7 @@ sub load_word_list {
     my @perl_words = qw(
         CPANfile
         cpanfile
+        Minilla
         mymeta
         PL
         blib
