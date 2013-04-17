@@ -193,6 +193,18 @@ as some common Perl jargon.
 
 =back
 
+=head1 HOW DO I ADD FILE SPECIFIC STOPWORDS?
+
+You can put it by following sytle POD annotation.
+
+    __END__
+
+    =for stopwords foo bar
+
+    =head1 NAME
+
+    ...
+
 =head1 THANKS TO
 
 Inspired from L<Test::Spelling>. And most of document was taken from L<Test::Spelling>.
