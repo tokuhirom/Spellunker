@@ -113,16 +113,28 @@ sub check_line {
     $line = $self->_clean_text($line);
 
     my @bad_words;
-    for ( grep /\S/, split /[#%~\|*=\[\]\/`"><': \t,.()?;!-]+/, $line) {
+    for ( grep /\S/, split /[#%~\|*=\[\]\/`"><: \t,.()?;!-]+/, $line) {
         s/\n//;
 
-        next if /^[0-9]+$/;
-        next if /^[A-Za-z]$/; # skip single character
-        next if /^[%\$\@*][A-Za-z_][A-Za-z0-9_]*$/; # perl variable
+        if (
+            m{
+                \A(.+)(?:
+                    n't  # doesn't
+                    |'ll # you'll
+                )\z
+            }x) {
+            push @bad_words, $self->check_line("$1");
+        } else {
+            for (split /'/, $_) {
+                next if length($_)==0;
+                next if /^[0-9]+$/;
+                next if /^[A-Za-z]$/; # skip single character
+                next if /^[%\$\@*][A-Za-z_][A-Za-z0-9_]*$/; # perl variable
 
-
-        $self->check_word($_)
-            or push @bad_words, $_;
+                $self->check_word($_)
+                    or push @bad_words, $_;
+            }
+        }
     }
     return @bad_words;
 }
@@ -137,8 +149,6 @@ sub _clean_text {
     $text =~ s/(\w+::)+\w+/ /gs;    # Remove references to Perl modules
     $text =~ s/\s+/ /gs;
     $text =~ s/[()\@,;:"\/.]+/ /gs;     # Remove punctuation
-    $text =~ s/you'll/you will/gs;
-    $text =~ s/\bisn't\b/is not/gs;
 
     return $text;
 }
