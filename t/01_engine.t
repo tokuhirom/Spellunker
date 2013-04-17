@@ -22,6 +22,9 @@ is(0+$engine->check_line("You can pass a %args."), 0, 'short hand');
 is(0+$engine->check_line('Use \%hashref'), 0, 'hashref');
 is(0+$engine->check_line('Use \@val'), 0, 'array');
 is(0+$engine->check_line("You can't"), 0, "can't");
+is(0+$engine->check_line("O'Reilly"), 0, "O'Reilly");
+is(0+$engine->check_line("'quoted'"), 0, "Quoted words");
+is(0+$engine->check_line("'em"), 0, "'em");
 
 done_testing;
 

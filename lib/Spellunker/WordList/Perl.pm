@@ -31,6 +31,8 @@ sub load_word_list {
         CVS
         RT
         val
+        O'Reilly
+        'em
     );
     my @web_service_name = qw(
         lingr

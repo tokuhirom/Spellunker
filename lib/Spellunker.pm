@@ -119,7 +119,9 @@ sub check_line {
         # special case
         next if $_ eq "can't";
 
-        if (
+        if (/\A'(.*)'\z/) {
+            push @bad_words, $self->check_line($1);
+        } elsif (
             m{
                 \A(.+)(?:
                     n't  # doesn't
@@ -128,16 +130,14 @@ sub check_line {
             }x) {
             push @bad_words, $self->check_line("$1");
         } else {
-            for (split /'/, $_) {
-                next if length($_)==0;
-                next if /^[0-9]+$/;
-                next if /^[A-Za-z]$/; # skip single character
-                next if /^\\?[%\$\@*][A-Za-z_][A-Za-z0-9_]*$/; # perl variable
-                next if /\A[\\.\@%#_]+\z/; # special characters
+            next if length($_)==0;
+            next if /^[0-9]+$/;
+            next if /^[A-Za-z]$/; # skip single character
+            next if /^\\?[%\$\@*][A-Za-z_][A-Za-z0-9_]*$/; # perl variable
+            next if /\A[\\.\@%#_]+\z/; # special characters
 
-                $self->check_word($_)
-                    or push @bad_words, $_;
-            }
+            $self->check_word($_)
+                or push @bad_words, $_;
         }
     }
     return @bad_words;
