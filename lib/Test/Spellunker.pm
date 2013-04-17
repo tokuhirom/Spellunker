@@ -195,7 +195,7 @@ as some common Perl jargon.
 
 =head1 HOW DO I ADD FILE SPECIFIC STOPWORDS?
 
-You can put it by following sytle POD annotation.
+You can put it by following style POD annotation.
 
     __END__
 
