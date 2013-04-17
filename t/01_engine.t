@@ -21,6 +21,7 @@ is(0+$engine->check_line("It isn't"), 0, 'short hand');
 is(0+$engine->check_line("You can pass a %args."), 0, 'short hand');
 is(0+$engine->check_line('Use \%hashref'), 0, 'hashref');
 is(0+$engine->check_line('Use \@val'), 0, 'array');
+is(0+$engine->check_line("You can't"), 0, "can't");
 
 done_testing;
 

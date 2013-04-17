@@ -116,6 +116,9 @@ sub check_line {
     for ( grep /\S/, split /[#~\|*=\[\]\/`"><: \t,.()?;!-]+/, $line) {
         s/\n//;
 
+        # special case
+        next if $_ eq "can't";
+
         if (
             m{
                 \A(.+)(?:
