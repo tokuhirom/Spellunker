@@ -45,9 +45,9 @@ sub load_dictionary {
     my ($self, $filename) = @_;
     open my $fh, '<', $filename
         or die "Cannot open '$filename' for reading: $!";
-    while (<$fh>) {
-        chomp;
-        $self->add_stopwords($_);
+    while (defined(my $line = <$fh>)) {
+        chomp $line;
+        $self->add_stopwords($line);
     }
 }
 
