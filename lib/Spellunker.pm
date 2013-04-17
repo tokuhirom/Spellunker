@@ -63,6 +63,10 @@ sub check_word {
     my ($self, $word) = @_;
     return 0 unless defined $word;
 
+    if ($word =~ /\A_([a-z]+)_\z/) {
+        return $self->check_word($1);
+    }
+
     # 19xx 2xx
     return 1 if $word =~ /^[0-9]+(xx|yy)$/;
 

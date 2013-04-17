@@ -14,6 +14,8 @@ ok(!$engine->check_word('gaaaaaa'));
 is(0+$engine->check_line("It isn't"), 0);
 is(0+$engine->check_line("<% \$module %>"), 0, 'in some case, Pod::Simple takes data from __DATA__ section.');
 is(0+$engine->check_line("# What I think"), 0, 'Ignore Markdown-ish header');
+is(0+$engine->check_line("You _know_ it"), 0, 'Plain text mark up');
+is(0+$engine->check_line("You *know* it"), 0, 'Plain text mark up');
 
 done_testing;
 
