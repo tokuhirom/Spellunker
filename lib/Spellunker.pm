@@ -33,6 +33,7 @@ sub new {
 sub _load_user_dict {
     my $self = shift;
     my $home = $ENV{HOME};
+    return unless defined $home;
     return unless -d $home;
     my $dictpath = File::Spec->catfile($home, '.spellunker.en');
     if (-f $dictpath) {
