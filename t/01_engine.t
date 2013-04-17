@@ -4,6 +4,7 @@ use utf8;
 use Test::More;
 
 use Spellunker;
+use Data::Dumper;
 
 my $engine = Spellunker->new();
 for (qw(good How darken lived studies How AUTHORS Dan's 19xx 2xx remove_header RFC IETF)) {
@@ -26,5 +27,17 @@ is(0+$engine->check_line("O'Reilly"), 0, "O'Reilly");
 is(0+$engine->check_line("'quoted'"), 0, "Quoted words");
 is(0+$engine->check_line("'em"), 0, "'em");
 
+while (<DATA>) {
+    chomp;
+    my @ret = $engine->check_line($_);
+    is(0+@ret, 0, $_) or diag Dumper(\@ret);
+}
+
 done_testing;
 
+__DATA__
+cookies'
+you've
+You've
+We're
+mod_perl's

@@ -33,6 +33,7 @@ sub load_word_list {
         val
         O'Reilly
         'em
+        mod_perl
     );
     my @web_service_name = qw(
         lingr

@@ -104,6 +104,13 @@ sub check_word {
         return $self->check_word($nt);
     }
 
+    # cookies'
+    return 1 if $word =~ /\A(.*)s'\z/ && $self->check_word($1);
+    # You've
+    return 1 if $word =~ /\A(.*)'ve\z/ && $self->check_word($1);
+    # We're
+    return 1 if $word =~ /\A(.*)'re\z/ && $self->check_word($1);
+
     return 0;
 }
 
