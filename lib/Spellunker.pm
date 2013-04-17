@@ -129,7 +129,7 @@ sub check_line {
                 next if length($_)==0;
                 next if /^[0-9]+$/;
                 next if /^[A-Za-z]$/; # skip single character
-                next if /^[%\$\@*][A-Za-z_][A-Za-z0-9_]*$/; # perl variable
+                next if /^\\?[%\$\@*][A-Za-z_][A-Za-z0-9_]*$/; # perl variable
                 next if /\A[.%#_]+\z/; # special characters
 
                 $self->check_word($_)

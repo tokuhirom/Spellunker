@@ -18,7 +18,8 @@ is(0+$engine->check_line("You _know_ it"), 0, 'Plain text mark up');
 is(0+$engine->check_line("You *know* it"), 0, 'Plain text mark up');
 is(0+$engine->check_line("It doesn't"), 0, 'short hand');
 is(0+$engine->check_line("It isn't"), 0, 'short hand');
-is(0+$engine->check_line("You can pass a %args"), 0, 'short hand');
+is(0+$engine->check_line("You can pass a %args."), 0, 'short hand');
+is(0+$engine->check_line('Use \%hashref'), 0, 'hashref');
 
 done_testing;
 
