@@ -2,6 +2,10 @@ Revision history for Perl extension Test-Spelling-Lite
 
 {{$NEXT}}
 
+v0.0.8 2013-04-17T09:57:27Z
+
+    - Allow "can't"
+
 v0.0.7 2013-04-17T07:53:04Z
 
     - Ignore \%hashref, \@val
