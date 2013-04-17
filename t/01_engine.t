@@ -17,7 +17,6 @@ is(0+$engine->check_line("<% \$module %>"), 0, 'in some case, Pod::Simple takes 
 is(0+$engine->check_line("# What I think"), 0, 'Ignore Markdown-ish header');
 is(0+$engine->check_line("You _know_ it"), 0, 'Plain text mark up');
 is(0+$engine->check_line("You *know* it"), 0, 'Plain text mark up');
-is(0+$engine->check_line("It doesn't"), 0, 'short hand');
 is(0+$engine->check_line("It isn't"), 0, 'short hand');
 is(0+$engine->check_line("You can pass a %args."), 0, 'short hand');
 is(0+$engine->check_line('Use \%hashref'), 0, 'hashref');
@@ -41,3 +40,5 @@ you've
 You've
 We're
 mod_perl's
+It doesn't
+You'll

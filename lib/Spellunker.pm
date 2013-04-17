@@ -110,6 +110,10 @@ sub check_word {
     return 1 if $word =~ /\A(.*)'ve\z/ && $self->check_word($1);
     # We're
     return 1 if $word =~ /\A(.*)'re\z/ && $self->check_word($1);
+    # You'll
+    return 1 if $word =~ /\A(.*)'ll\z/ && $self->check_word($1);
+    # doesn't
+    return 1 if $word =~ /\A(.*)n't\z/ && $self->check_word($1);
 
     return 0;
 }
@@ -123,19 +127,8 @@ sub check_line {
     for ( grep /\S/, split /[#~\|*=\[\]\/`"><: \t,.()?;!-]+/, $line) {
         s/\n//;
 
-        # special case
-        next if $_ eq "can't";
-
         if (/\A'(.*)'\z/) {
             push @bad_words, $self->check_line($1);
-        } elsif (
-            m{
-                \A(.+)(?:
-                    n't  # doesn't
-                    |'ll # you'll
-                )\z
-            }x) {
-            push @bad_words, $self->check_line("$1");
         } else {
             next if length($_)==0;
             next if /^[0-9]+$/;
