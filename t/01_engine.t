@@ -12,6 +12,8 @@ for (qw(good How darken lived studies How AUTHORS Dan's 19xx 2xx remove_header R
 ok(!$engine->check_word('gaaaaaa'));
 
 is(0+$engine->check_line("It isn't"), 0);
+is(0+$engine->check_line("<% \$module %>"), 0, 'in some case, Pod::Simple takes data from __DATA__ section.');
+is(0+$engine->check_line("# What I think"), 0, 'Ignore Markdown-ish header');
 
 done_testing;
 
