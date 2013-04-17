@@ -2,6 +2,10 @@ Revision history for Perl extension Test-Spelling-Lite
 
 {{$NEXT}}
 
+v0.0.5 2013-04-17T01:54:02Z
+
+    - suppress uuv on win32
+
 v0.0.4 2013-04-16T14:25:25Z
 
     - ignore "isn't"
