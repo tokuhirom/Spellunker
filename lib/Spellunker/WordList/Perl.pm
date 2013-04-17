@@ -30,6 +30,7 @@ sub load_word_list {
         gitignore
         CVS
         RT
+        val
     );
     my @web_service_name = qw(
         lingr
