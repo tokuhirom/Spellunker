@@ -69,8 +69,8 @@ sub check_word {
     # Method name
     return 1 if $word =~ /\A([a-zA-Z0-9]+_)+[a-zA-Z0-9]+\z/;
 
-    # Ignore 3 or 4 capital letter words like RFC, IETF.
-    return 1 if $word =~ /\A[A-Z]{3,4}\z/;
+    # Ignore 2, 3 or 4 capital letter words like RT, RFC, IETF.
+    return 1 if $word =~ /\A[A-Z]{2,4}\z/;
 
     # "foo" - quoted word
     if (my ($body) = ($word =~ /\A"(.+)"\z/)) {
