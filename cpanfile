@@ -1,5 +1,5 @@
 requires 'Regexp::Common';
-requires 'Pod::Simple';
+requires 'Pod::Simple', '3.26'; # 3.20 has a bug
 requires 'File::ShareDir';
 requires 'Getopt::Long';
 requires 'Pod::Simple::Methody';
