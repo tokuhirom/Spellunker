@@ -45,7 +45,7 @@
          "requires" : {
             "File::ShareDir" : "0",
             "Getopt::Long" : "0",
-            "Pod::Simple" : "0",
+            "Pod::Simple" : "3.26",
             "Pod::Simple::Methody" : "0",
             "Regexp::Common" : "0",
             "Test::Builder" : "0",
@@ -72,5 +72,5 @@
          "web" : "https://github.com/tokuhirom/Spellunker"
       }
    },
-   "version" : "v0.0.10"
+   "version" : "v0.0.11"
 }

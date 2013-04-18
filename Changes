@@ -2,6 +2,12 @@ Revision history for Perl extension Test-Spelling-Lite
 
 {{$NEXT}}
 
+v0.0.11 2013-04-18T03:14:00Z
+
+    - Support "You'd"
+      (Suggested by gfx++)
+    - Depend *on* Pod::Simple 3.26
+
 v0.0.10 2013-04-18T02:58:08Z
 
     - Do not include user dictionary in testing Spellunker itself.
