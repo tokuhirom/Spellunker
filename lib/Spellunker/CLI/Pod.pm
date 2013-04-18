@@ -5,7 +5,7 @@ use utf8;
 use Getopt::Long;
 use Spellunker::Pod;
 
-use version; our $VERSION = version->declare("v0.0.9");
+use version; our $VERSION = version->declare("v0.0.10");
 
 sub new {
     my $class = shift;
