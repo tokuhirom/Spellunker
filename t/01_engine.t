@@ -67,3 +67,5 @@ e-mail
 my $spellunker = Spellunker->new();
 pod-spell
 machine-dependent
+2xx is good code in HTTP
+$spellunker->call
