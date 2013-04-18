@@ -30,7 +30,7 @@ sub _check_parser {
         my $text = $line->[1];
         my @err = $self->{spellunker}->check_line($text);
         if (@err) {
-            push @rv, [$line->[0], @err];
+            push @rv, [$line->[0], $line->[1], \@err];
         }
     }
     return @rv;

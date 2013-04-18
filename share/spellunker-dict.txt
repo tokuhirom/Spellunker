@@ -384,3 +384,12 @@ email
 e-mail
 cpan
 's # L<Foo>'s
+minil
+dist
+ppport
+json
+toml
+installable
+dzil
+md # extension for markdown
+foo

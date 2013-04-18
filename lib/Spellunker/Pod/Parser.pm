@@ -18,8 +18,16 @@ sub new {
     $new->{'output_fh'} ||= *STDOUT{IO};
     $new->{mode} = 'normal';
     $new->accept_target_as_text(qw( text plaintext plain stopwords ));
+
+    # whether to ignore X<...> codes
     $new->nix_X_codes(1);
+
+    # Whether to map S<...>'s to \xA0 characters
     $new->nbsp_for_S(1);
+
+    # whether to try to keep whitespace as-is
+    $new->preserve_whitespace(1);
+
     return $new;
 }
 
@@ -33,9 +41,12 @@ sub handle_text {
     } elsif ($self->{mode} eq MODE_STOPWORDS) {
         push @{$self->{stopwords}}, $text;
     } else {
-        push @{$self->{lines}}, [
-            $self->line_count, $text
-        ];
+        my $offset = 0;
+        for my $line (split /\n/, $text) {
+            push @{$self->{lines}}, [
+                $self->line_count + $offset, $line
+            ];
+        }
     }
 }
 

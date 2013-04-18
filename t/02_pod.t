@@ -2,6 +2,7 @@ use strict;
 use warnings;
 use utf8;
 use Test::More;
+use Data::Dumper; # for diag
 BEGIN { $ENV{PERL_SPELLUNKER_NO_USER_DICT} = 1 }
 
 use Spellunker::Pod;
@@ -15,8 +16,12 @@ subtest 'ok' => sub {
 subtest 'fail' => sub {
     my $sp = Spellunker::Pod->new();
     my @ret = $sp->check_file('t/dat/fail.pod');
-    is(0+@ret, 1);
-    is_deeply( \@ret, [ [ 6, 'gah', 'aaaaaaaaaaaaaaaaaaa' ] ] );
+    is(0+@ret, 2);
+    is_deeply( \@ret, [
+            [ 6, 'I gah foo', ['gah']],
+            [ 6, 'aaaaaaaaaaaaaaaaaaa', ['aaaaaaaaaaaaaaaaaaa']],
+            ] )
+        or diag(Dumper(\@ret));
 };
 
 done_testing;
