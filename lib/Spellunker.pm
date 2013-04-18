@@ -46,6 +46,7 @@ sub load_dictionary {
         or die "Cannot open '$filename' for reading: $!";
     while (defined(my $line = <$fh>)) {
         chomp $line;
+        $line =~ s/\s*#.*//; # remove comments.
         $self->add_stopwords(split /\s+/, $line);
     }
 }
