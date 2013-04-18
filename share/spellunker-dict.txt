@@ -383,3 +383,4 @@ xism # //xism in regexp.
 email
 e-mail
 cpan
+'s # L<Foo>'s
