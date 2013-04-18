@@ -25,6 +25,7 @@ sub new {
 
     # From https://code.google.com/p/dotnetperls-controls/downloads/detail?name=enable1.tx
     $self->load_dictionary(File::Spec->catfile(File::ShareDir::dist_dir('Spellunker'), 'enable1.txt'));
+    $self->load_dictionary(File::Spec->catfile(File::ShareDir::dist_dir('Spellunker'), 'spellunker-dict.txt'));
 
     $self->_load_user_dict();
     return $self;
@@ -43,11 +44,11 @@ sub _load_user_dict {
 
 sub load_dictionary {
     my ($self, $filename) = @_;
-    open my $fh, '<', $filename
+    open my $fh, '<:utf8', $filename
         or die "Cannot open '$filename' for reading: $!";
     while (defined(my $line = <$fh>)) {
         chomp $line;
-        $self->add_stopwords($line);
+        $self->add_stopwords(split /\s+/, $line);
     }
 }
 
@@ -115,6 +116,9 @@ sub check_word {
     # doesn't
     return 1 if $word =~ /\A(.*)n't\z/ && $self->check_word($1);
 
+    ## Prefixes
+    return 1 if $word =~ /\Anon-(.*)\z/ && $self->check_word($1);
+
     return 0;
 }
 
@@ -125,7 +129,7 @@ sub check_line {
     $line = $self->_clean_text($line);
 
     my @bad_words;
-    for ( grep /\S/, split /[#~\|*=\[\]\/`"><: \t,.()?;!-]+/, $line) {
+    for ( grep /\S/, split /[#~\|*=\[\]\/`"><: \t,.()?;!]+/, $line) {
         s/\n//;
 
         if (/\A'(.*)'\z/) {

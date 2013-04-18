@@ -42,3 +42,5 @@ We're
 mod_perl's
 It doesn't
 You'll
+rename any non-standard executables so the names do not conflict with
+Ingy döt Net
