@@ -69,3 +69,5 @@ pod-spell
 machine-dependent
 2xx is good code in HTTP
 $spellunker->call
+$spellunker->check_word($word);
+You'd better quit smoking
