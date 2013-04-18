@@ -129,7 +129,7 @@ sub check_line {
     $line = $self->_clean_text($line);
 
     my @bad_words;
-    for ( grep /\S/, split /[#~\|*=\[\]\/`"><: \t,.()?;!]+/, $line) {
+    for ( grep /\S/, split /[#~\|*=\[\]\/`"<: \t,.()?;!]+/, $line) {
         s/\n//;
 
         if (/\A'(.*)'\z/) {
@@ -140,6 +140,15 @@ sub check_line {
             next if /^[A-Za-z]$/; # skip single character
             next if /^\\?[%\$\@*][A-Za-z_][A-Za-z0-9_]*$/; # perl variable
             next if /\A[\\.\@%#_]+\z/; # special characters
+
+            # Ignore Text::MicroTemplate code.
+            next if /\A<%\z/;
+            next if /\A%>\z/;
+
+            # Perl method call
+            # $foo->bar
+            # $foo->bar()
+            next if /\A\$[A-Za-z_][A-Za-z0-9_]*->[A-Za-z_][A-Za-z0-9_]*(?:\([^\]]*\))?\z/;
 
             $self->check_word($_)
                 or push @bad_words, $_;

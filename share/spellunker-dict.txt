@@ -380,3 +380,5 @@ O'Reilly
 mod_perl
 iterator
 xism # //xism in regexp.
+email
+e-mail

@@ -47,3 +47,9 @@ Ingy döt Net
 re-enabled
 iterator
 'xism' flag.
+$frame->hasargs
+$frame->hasargs()
+$frame->hasargs($foo)
+cpan
+email
+e-mail
