@@ -63,3 +63,5 @@ cpan
 email
 e-mail
 my $spellunker = Spellunker->new();
+pod-spell
+machine-dependent

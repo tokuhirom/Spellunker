@@ -119,6 +119,17 @@ sub check_word {
     return 1 if $word =~ /\Anon-(.*)\z/ && $self->check_word($1);
     return 1 if $word =~ /\Are-(.*)\z/ && $self->check_word($1);
 
+    if ($word =~ /-/) {
+        my @words = split /-/, $word;
+        my $ok = 0;
+        for (@words) {
+            if ($self->check_word($_)) {
+                $ok++;
+            }
+        }
+        return 1 if @words == $ok;
+    }
+
     return 0;
 }
 
