@@ -4,7 +4,7 @@ use warnings FATAL => 'all';
 use utf8;
 use 5.008001;
 
-use version; our $VERSION = version->declare("v0.0.8");
+use version; our $VERSION = version->declare("v0.0.9");
 
 use File::Spec ();
 use File::ShareDir ();
@@ -136,6 +136,7 @@ sub check_line {
             push @bad_words, $self->check_line($1);
         } else {
             next if length($_)==0;
+            next if length($_)==1;
             next if /^[0-9]+$/;
             next if /^[A-Za-z]$/; # skip single character
             next if /^\\?[%\$\@*][A-Za-z_][A-Za-z0-9_]*$/; # perl variable
@@ -146,15 +147,30 @@ sub check_line {
             next if /\A%>\z/;
 
             # Perl method call
+            # Spellunker->bar
+            # Foo::Bar->bar
             # $foo->bar
             # $foo->bar()
-            next if /\A\$[A-Za-z_][A-Za-z0-9_]*->[A-Za-z_][A-Za-z0-9_]*(?:\([^\]]*\))?\z/;
+            next if _is_perl_method_call($_);
 
             $self->check_word($_)
                 or push @bad_words, $_;
         }
     }
     return @bad_words;
+}
+
+sub _is_perl_method_call {
+    my $PERL_NAME = '[A-Za-z_][A-Za-z0-9_]*';
+    $_[0] =~ /\A
+        (?:
+            \$ $PERL_NAME
+            | ( $PERL_NAME :: )* $PERL_NAME
+        )
+        ->
+        $PERL_NAME
+        (?:\([^\)]*\))?
+    \z/x
 }
 
 sub _clean_text {

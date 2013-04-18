@@ -7,6 +7,15 @@ use Spellunker;
 use Data::Dumper;
 
 my $engine = Spellunker->new();
+
+ok Spellunker::_is_perl_method_call('Spellunker->new');
+ok Spellunker::_is_perl_method_call('Spell::unker->new');
+ok Spellunker::_is_perl_method_call('$foo->new');
+ok Spellunker::_is_perl_method_call('$foo->new()');
+ok Spellunker::_is_perl_method_call('$foo->new(3)');
+
+# use Data::Dumper; die Dumper($engine->check_line('Spellunker->new'));
+
 for (qw(good How darken lived studies How AUTHORS Dan's 19xx 2xx remove_header RFC IETF)) {
     ok($engine->check_word($_), $_);
 }
@@ -53,3 +62,4 @@ $frame->hasargs($foo)
 cpan
 email
 e-mail
+my $spellunker = Spellunker->new();
