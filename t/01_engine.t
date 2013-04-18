@@ -71,3 +71,4 @@ machine-dependent
 $spellunker->call
 $spellunker->check_word($word);
 You'd better quit smoking
+%>>

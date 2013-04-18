@@ -151,11 +151,10 @@ sub check_line {
             next if /^[0-9]+$/;
             next if /^[A-Za-z]$/; # skip single character
             next if /^\\?[%\$\@*][A-Za-z_][A-Za-z0-9_]*$/; # perl variable
-            next if /\A[\\.\@%#_]+\z/; # special characters
 
             # Ignore Text::MicroTemplate code.
-            next if /\A<%\z/;
-            next if /\A%>\z/;
+            # And do not care special character only word.
+            next if /\A[<%>\\.\@%#_]+\z/; # special characters
 
             # Perl method call
             # Spellunker->bar
