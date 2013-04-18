@@ -120,6 +120,7 @@ sub check_word {
 
 sub check_line {
     my ($self, $line) = @_;
+    return unless defined $line;
 
     $line = $self->_clean_text($line);
 
