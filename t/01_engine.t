@@ -6,6 +6,8 @@ use Test::More;
 use Spellunker;
 use Data::Dumper;
 
+BEGIN { $ENV{PERL_SPELLUNKER_NO_USER_DICT} = 1 }
+
 my $engine = Spellunker->new();
 
 ok Spellunker::_is_perl_method_call('Spellunker->new');

@@ -19,13 +19,16 @@ my $MAIL_REGEX = (
 
 sub new {
     my $class = shift;
+    my %args = @_==1 ? %{$_[0]} : @_;
     my $self = bless {}, $class;
 
     # From https://code.google.com/p/dotnetperls-controls/downloads/detail?name=enable1.tx
     $self->load_dictionary(File::Spec->catfile(File::ShareDir::dist_dir('Spellunker'), 'enable1.txt'));
     $self->load_dictionary(File::Spec->catfile(File::ShareDir::dist_dir('Spellunker'), 'spellunker-dict.txt'));
 
-    $self->_load_user_dict();
+    unless ($ENV{PERL_SPELLUNKER_NO_USER_DICT}) {
+        $self->_load_user_dict();
+    }
     return $self;
 }
 
