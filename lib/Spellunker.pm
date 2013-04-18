@@ -116,6 +116,7 @@ sub check_word {
 
     ## Prefixes
     return 1 if $word =~ /\Anon-(.*)\z/ && $self->check_word($1);
+    return 1 if $word =~ /\Are-(.*)\z/ && $self->check_word($1);
 
     return 0;
 }
