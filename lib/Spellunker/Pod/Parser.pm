@@ -12,6 +12,34 @@ use constant {
     MODE_NORMAL    => 3,
 };
 
+sub _handle_element_start {
+    my ($self, $element_name, $attr_hash_r) = @_;
+    $element_name =~ tr/-:./__/;
+
+    $self->{start_line} = $attr_hash_r->{start_line};
+
+    if ($element_name eq 'encoding') {
+        $self->{mode} = MODE_IGNORE;
+    } elsif ($element_name eq 'for') {
+        if ($attr_hash_r->{target} eq 'stopwords') {
+            $self->{mode} = MODE_STOPWORDS;
+        }
+    } elsif (
+        $element_name eq 'code'
+        || $element_name eq 'Verbatim'
+        || $element_name eq 'C' # C<>
+        || $element_name eq 'L' # L<>
+    ) {
+        $_[0]->{mode} = MODE_IGNORE;
+    }
+}
+
+sub _handle_element_end {
+    my ($self, $element_name, $attr_hash_r) = @_;
+    $element_name =~ tr/-:./__/;
+    $self->{mode} = MODE_NORMAL;
+}
+
 sub new {
     my $self = shift;
     my $new  = $self->SUPER::new(@_);
@@ -33,8 +61,9 @@ sub new {
 
 sub stopwords { $_[0]->{stopwords} || [] }
 sub lines { $_[0]->{lines} || [] }
+sub start_line { $_[0]->{start_line} || 0 }
 
-sub handle_text {
+sub _handle_text {
     my ($self, $text) = @_;
     if ($self->{mode} eq MODE_IGNORE) {
         # nop.
@@ -44,36 +73,11 @@ sub handle_text {
         my $offset = 0;
         for my $line (split /\n/, $text) {
             push @{$self->{lines}}, [
-                $self->line_count + $offset, $line
+                $self->start_line + $offset, $line
             ];
+            $offset++;
         }
     }
-}
-
-sub start_encoding { $_[0]->{mode} = MODE_IGNORE }
-sub end_encoding   { $_[0]->{mode} = MODE_NORMAL }
-
-sub start_for {
-    my ($self, $flags) = @_;
-    if ($flags->{target} eq 'stopwords') {
-        $self->{mode} = MODE_STOPWORDS;
-    }
-}
-
-sub end_for {
-    my ($self, $flags) = @_;
-    $self->{mode} = MODE_NORMAL;
-}
-
-for (
-    'code',
-    'Verbatim',
-    'C', # C<>
-    'L', # L<>
-) {
-    no strict 'refs';
-    *{"start_$_"} = sub { $_[0]->{mode} = MODE_IGNORE };
-    *{"end_$_"}   = sub { $_[0]->{mode} = MODE_NORMAL };
 }
 
 1;
