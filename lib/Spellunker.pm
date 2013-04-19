@@ -66,6 +66,9 @@ sub check_word {
     my ($self, $word) = @_;
     return 0 unless defined $word;
 
+    # There is no alphabetical characters.
+    return 1 if $word !~ /[A-Za-z]/;
+
     if ($word =~ /\A_([a-z]+)_\z/) {
         return $self->check_word($1);
     }
@@ -77,7 +80,7 @@ sub check_word {
     return 1 if $word =~ /\A([a-zA-Z0-9]+_)+[a-zA-Z0-9]+\z/;
 
     # Ignore 2, 3 or 4 capital letter words like RT, RFC, IETF.
-    return 1 if $word =~ /\A[A-Z]{2,4}\z/;
+    return 1 if $word =~ /\A[A-Z]+\z/;
 
     # "foo" - quoted word
     if (my ($body) = ($word =~ /\A"(.+)"\z/)) {
@@ -116,6 +119,10 @@ sub check_word {
     # Perl-ish
     return 1 if $word =~ /\A(.*)-ish\z/ && $self->check_word($1);
 
+    # comE<gt>
+    return 1 if $word =~ /\A(.*)>\z/ && $self->check_word($1);
+    return 1 if $word =~ /\A\{(.*)\}\z/ && $self->check_word($1);
+
     ## Prefixes
     return 1 if $word =~ /\Anon-(.*)\z/ && $self->check_word($1);
     return 1 if $word =~ /\Are-(.*)\z/ && $self->check_word($1);
@@ -139,6 +146,7 @@ sub check_line {
     return unless defined $line;
 
     $line = $self->_clean_text($line);
+    return unless defined $line;
 
     my @bad_words;
     for ( grep /\S/, split /[#~\|*=\[\]\/`"<: \t,.()?;!]+/, $line) {
@@ -156,6 +164,9 @@ sub check_line {
             # Ignore Text::MicroTemplate code.
             # And do not care special character only word.
             next if /\A[<%>\\.\@%#_]+\z/; # special characters
+
+            # JSON::XS-ish boolean value
+            next if /\A\\[01]\z/;
 
             # Ignore command line options
             next if /\A

@@ -82,3 +82,7 @@ Test::TCP->new(%args);
 Test::TCP
 Perl-ish
 OO-ish
+\1
+\0
+Copyright 2009-2011 Tatsuhiko Miyagawa
+Masahiro Nagano <kazeburo {at} gmail.com>
