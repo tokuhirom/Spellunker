@@ -12,11 +12,12 @@ my $engine = Spellunker->new();
 ok $engine->{stopwords}->{"'s"} or die;
 ok $engine->check_word("'s") or die;
 
-ok Spellunker::_is_perl_method_call('Spellunker->new');
-ok Spellunker::_is_perl_method_call('Spell::unker->new');
-ok Spellunker::_is_perl_method_call('$foo->new');
-ok Spellunker::_is_perl_method_call('$foo->new()');
-ok Spellunker::_is_perl_method_call('$foo->new(3)');
+ok Spellunker::_is_perl_code('Spellunker->new');
+ok Spellunker::_is_perl_code('Spell::unker->new');
+ok Spellunker::_is_perl_code('$foo->new');
+ok Spellunker::_is_perl_code('$foo->new()');
+ok Spellunker::_is_perl_code('$foo->new(3)');
+ok Spellunker::_is_perl_code('$foo{bar}');
 
 # use Data::Dumper; die Dumper($engine->check_line('Spellunker->new'));
 
@@ -77,3 +78,5 @@ You'd better quit smoking
 :p
 XD
 --no-configure
+Test::TCP->new(%args);
+Test::TCP

@@ -162,12 +162,7 @@ sub check_line {
                 [a-z]+
             \z/x;
 
-            # Perl method call
-            # Spellunker->bar
-            # Foo::Bar->bar
-            # $foo->bar
-            # $foo->bar()
-            next if _is_perl_method_call($_);
+            next if _is_perl_code($_);
 
             $self->check_word($_)
                 or push @bad_words, $_;
@@ -176,9 +171,22 @@ sub check_line {
     return @bad_words;
 }
 
-sub _is_perl_method_call {
+    # Perl method call
+sub _is_perl_code {
     my $PERL_NAME = '[A-Za-z_][A-Za-z0-9_]*';
-    $_[0] =~ /\A
+
+    # Class name
+    # Foo::Bar
+    return 1 if $_[0] =~ /\A
+        (?: $PERL_NAME :: )*
+        $PERL_NAME
+    \z/x;
+
+    # Spellunker->bar
+    # Foo::Bar->bar
+    # $foo->bar
+    # $foo->bar()
+    return 1 if $_[0] =~ /\A
         (?:
             \$ $PERL_NAME
             | ( $PERL_NAME :: )* $PERL_NAME
@@ -186,7 +194,14 @@ sub _is_perl_method_call {
         ->
         $PERL_NAME
         (?:\([^\)]*\))?
-    \z/x
+    \z/x;
+
+    # hash access
+    return 1 if $_[0] =~ /\A
+        \$ $PERL_NAME \{ $PERL_NAME \}
+    \z/x;
+
+    return 0;
 }
 
 sub _clean_text {
@@ -196,7 +211,6 @@ sub _clean_text {
     $text =~ s!<$MAIL_REGEX>|$MAIL_REGEX!!; # Remove E-mail address.
     $text =~ s!$RE{URI}{HTTP}!!g; # Remove HTTP URI
     $text =~ s!\(C\)!!gi; # Copyright mark
-    $text =~ s/(\w+::)+\w+/ /gs;    # Remove references to Perl modules
     $text =~ s/\s+/ /gs;
     $text =~ s/[()\@,;:"\/.]+/ /gs;     # Remove punctuation
 

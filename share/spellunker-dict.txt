@@ -92,7 +92,9 @@ uWSGI
 webserver
 can't
 yaml
-Ingy döt Net
+Ingy
+döt
+Net
 Achim
 Adam
 Cushing
@@ -397,3 +399,9 @@ spellunker
 org
 transformability
 etc
+kazuhooku
+charsbar
+dragon3
+memcached
+pid
+jQuery
