@@ -4,13 +4,19 @@ use warnings;
 use utf8;
 use Getopt::Long;
 use Spellunker::Pod;
+use Term::ANSIColor qw(colored);
+require Win32::Console::ANSI if $^O eq 'MSWin32';
 
 use version; our $VERSION = version->declare("v0.0.13");
 
 sub new {
     my $class = shift;
-    bless {}, $class;
+    bless {
+        color => -t STDOUT ? 1 : 0,
+    }, $class;
 }
+
+sub color { $_[0]->{color} }
 
 sub run {
     my $self = shift;
@@ -31,12 +37,7 @@ sub run {
         for my $filename (@ARGV) {
             my $spellunker = Spellunker::Pod->new();
             my @err = $spellunker->check_file($filename);
-            for (@err) {
-                my ($lineno, $line, $errs) = @$_;
-                for (@$errs) {
-                    print "$filename: $lineno: $_\n";
-                }
-            }
+            $self->_show_error($filename, @err);
             $fail++ if @err;
         }
         exit $fail;
@@ -44,6 +45,7 @@ sub run {
         my $content = join('', <>);
         my $spellunker = Spellunker::Pod->new();
         my @err = $spellunker->check_text($content);
+        $self->_show_error('-', @err);
         for (@err) {
             my ($lineno, $line, $errs) = @$_;
             for (@$errs) {
@@ -51,6 +53,22 @@ sub run {
             }
         }
         exit @err ? 1 : 0;
+    }
+}
+
+sub _show_error {
+    my ($self, $filename, @err) = @_;
+
+    for (@err) {
+        my ($lineno, $line, $errs) = @$_;
+        my $result;
+        if ($self->color) {
+            $result = $line;
+            $result =~ s!\Q$_!colored(['red'], $_)!e for @$errs;
+        } else {
+            $result = join ' ', @$errs;
+        }
+        print "$filename: $lineno: $result\n";
     }
 }
 

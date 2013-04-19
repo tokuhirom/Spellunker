@@ -133,7 +133,10 @@ sub check_word {
     return 1 if $word =~ /\Are-(.*)\z/ && $self->check_word($1);
 
     # :Str
-    return 1 if $word =~ /\A:(.*)\z/ && $self->check_word($1);
+    return 1 if $word =~ /\A:(#.*)\z/ && $self->check_word($1);
+
+    # IRC channel name
+    return 1 if $word =~ /\A#[a-z0-9-]+\z/;
 
     if ($word =~ /-/) {
         my @words = split /-/, $word;
@@ -157,7 +160,7 @@ sub check_line {
     return unless defined $line;
 
     my @bad_words;
-    for ( grep /\S/, split /[#~\|*=\[\]\/`"< \t,.()?;!]+/, $line) {
+    for ( grep /\S/, split /[~\|*=\[\]\/`"< \t,.()?;!]+/, $line) {
         s/\n//;
 
         if (/\A'(.*)'\z/) {

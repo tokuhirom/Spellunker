@@ -91,3 +91,5 @@ If you want to use plugin under the 'Karas::Plugin::Name' namespace, you just wr
 Show @args
 $db->{connect_info}
 :Str
+#perl-qa
+#amon
