@@ -189,7 +189,7 @@ sub _is_perl_code {
     # Class name
     # Foo::Bar
     return 1 if $_[0] =~ /\A
-        (?: $PERL_NAME :: )*
+        (?: $PERL_NAME :: )+
         $PERL_NAME
     \z/x;
 
