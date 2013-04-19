@@ -76,3 +76,4 @@ You'd better quit smoking
 %>>
 :p
 XD
+--no-configure

@@ -155,6 +155,13 @@ sub check_line {
             # And do not care special character only word.
             next if /\A[<%>\\.\@%#_]+\z/; # special characters
 
+            # Ignore command line options
+            next if /\A
+                --
+                (?: [a-z]+ - )+
+                [a-z]+
+            \z/x;
+
             # Perl method call
             # Spellunker->bar
             # Foo::Bar->bar
