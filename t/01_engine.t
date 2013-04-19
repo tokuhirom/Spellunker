@@ -86,3 +86,4 @@ OO-ish
 \0
 Copyright 2009-2011 Tatsuhiko Miyagawa
 Masahiro Nagano <kazeburo {at} gmail.com>
+IT'S ENTERTAINMENT!

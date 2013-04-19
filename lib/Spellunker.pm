@@ -4,7 +4,7 @@ use warnings FATAL => 'all';
 use utf8;
 use 5.008001;
 
-use version; our $VERSION = version->declare("v0.0.12");
+use version; our $VERSION = version->declare("v0.0.13");
 
 use File::Spec ();
 use File::ShareDir ();
@@ -79,8 +79,9 @@ sub check_word {
     # Method name
     return 1 if $word =~ /\A([a-zA-Z0-9]+_)+[a-zA-Z0-9]+\z/;
 
-    # Ignore 2, 3 or 4 capital letter words like RT, RFC, IETF.
-    return 1 if $word =~ /\A[A-Z]+\z/;
+    # Ignore apital letter words like RT, RFC, IETF.
+    # And so "IT'S" should be allow.
+    return 1 if $word =~ /\A[A-Z']+\z/;
 
     # "foo" - quoted word
     if (my ($body) = ($word =~ /\A"(.+)"\z/)) {
@@ -120,9 +121,6 @@ sub check_word {
     return 1 if $word =~ /\A(.*)-ish\z/ && $self->check_word($1);
 
     # comE<gt>
-    return 1 if $word =~ /\A(.*)>\z/ && $self->check_word($1);
-    return 1 if $word =~ /\A\{(.*)\}\z/ && $self->check_word($1);
-
     ## Prefixes
     return 1 if $word =~ /\Anon-(.*)\z/ && $self->check_word($1);
     return 1 if $word =~ /\Are-(.*)\z/ && $self->check_word($1);
