@@ -66,6 +66,8 @@ sub check_word {
     my ($self, $word) = @_;
     return 0 unless defined $word;
 
+    return 1 if _is_perl_code($word);
+
     # There is no alphabetical characters.
     return 1 if $word !~ /[A-Za-z]/;
 
@@ -151,7 +153,7 @@ sub check_line {
     return unless defined $line;
 
     my @bad_words;
-    for ( grep /\S/, split /[#~\|*=\[\]\/`"<: \t,.()?;!]+/, $line) {
+    for ( grep /\S/, split /[#~\|*=\[\]\/`"< \t,.()?;!]+/, $line) {
         s/\n//;
 
         if (/\A'(.*)'\z/) {
@@ -176,8 +178,6 @@ sub check_line {
                 (?: [a-z]+ - )+
                 [a-z]+
             \z/x;
-
-            next if _is_perl_code($_);
 
             $self->check_word($_)
                 or push @bad_words, $_;
@@ -227,7 +227,7 @@ sub _clean_text {
     $text =~ s!$RE{URI}{HTTP}!!g; # Remove HTTP URI
     $text =~ s!\(C\)!!gi; # Copyright mark
     $text =~ s/\s+/ /gs;
-    $text =~ s/[()\@,;:"\/.]+/ /gs;     # Remove punctuation
+    $text =~ s/[()\@,;"\/.]+/ /gs;     # Remove punctuation
 
     return $text;
 }
