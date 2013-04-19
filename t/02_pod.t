@@ -10,7 +10,7 @@ use Spellunker::Pod;
 subtest 'ok' => sub {
     my $sp = Spellunker::Pod->new();
     my @ret = $sp->check_file('t/dat/ok.pod');
-    is(0+@ret, 0);
+    is(0+@ret, 0) or diag Dumper(\@ret);
 };
 
 subtest 'fail' => sub {

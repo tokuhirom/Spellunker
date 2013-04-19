@@ -9,6 +9,8 @@ use Data::Dumper;
 BEGIN { $ENV{PERL_SPELLUNKER_NO_USER_DICT} = 1 }
 
 my $engine = Spellunker->new();
+ok $engine->{stopwords}->{"'s"} or die;
+ok $engine->check_word("'s") or die;
 
 ok Spellunker::_is_perl_method_call('Spellunker->new');
 ok Spellunker::_is_perl_method_call('Spell::unker->new');
@@ -72,3 +74,5 @@ $spellunker->call
 $spellunker->check_word($word);
 You'd better quit smoking
 %>>
+:p
+XD

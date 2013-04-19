@@ -84,9 +84,6 @@ sub check_word {
         return $self->check_word($body);
     }
 
-    # Dan's
-    $word =~ s!'s$!!;
-
     # good
     return 1 if $self->{stopwords}->{$word};
 
@@ -102,6 +99,8 @@ sub check_word {
         return 1 if $self->{stopwords}->{lc $word};
     }
 
+    # Dan's
+    return 1 if $word =~ /\A(.*)'s\z/ && $self->check_word($1);
     # cookies'
     return 1 if $word =~ /\A(.*)s'\z/ && $self->check_word($1);
     # You've
