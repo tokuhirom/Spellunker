@@ -16,7 +16,9 @@ sub _handle_element_start {
     my ($self, $element_name, $attr_hash_r) = @_;
     $element_name =~ tr/-:./__/;
 
-    $self->{start_line} = $attr_hash_r->{start_line};
+    if (my $start_line = $attr_hash_r->{start_line}) {
+        $self->{start_line} = $start_line;
+    }
 
     if ($element_name eq 'encoding') {
         $self->{mode} = MODE_IGNORE;

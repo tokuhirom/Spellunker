@@ -100,9 +100,8 @@ sub pod_file_spelling_ok {
     if (!$ok) {
         my $msg = "Errors:\n";
         for (@err) {
-            my $lineno = shift @$_;
-            my $line   = shift @$_;
-            for my $err (@$_) {
+            my ($lineno, $line, $errs) = @$_;
+            for my $err (@$errs) {
                 $msg .= "    $lineno: $err\n";
             }
         }
