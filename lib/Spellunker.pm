@@ -124,12 +124,16 @@ sub check_word {
     # {at}
     return 1 if $word =~ /\A\{(.*)\}\z/ && $self->check_word($1);
     # com>
-    return 1 if $word =~ /\A(.*)>\z/ && $self->check_word($1);
+    # following:
+    return 1 if $word =~ /\A(.*)[>:]\z/ && $self->check_word($1);
 
     # comE<gt>
     ## Prefixes
     return 1 if $word =~ /\Anon-(.*)\z/ && $self->check_word($1);
     return 1 if $word =~ /\Are-(.*)\z/ && $self->check_word($1);
+
+    # :Str
+    return 1 if $word =~ /\A:(.*)\z/ && $self->check_word($1);
 
     if ($word =~ /-/) {
         my @words = split /-/, $word;
@@ -216,6 +220,11 @@ sub _is_perl_code {
         \$ $PERL_NAME \{ $PERL_NAME \}
     \z/x;
 
+    # hashref access
+    return 1 if $_[0] =~ /\A
+        \$ $PERL_NAME -> \{ $PERL_NAME \}
+    \z/x;
+
     return 0;
 }
 
@@ -227,7 +236,7 @@ sub _clean_text {
     $text =~ s!$RE{URI}{HTTP}!!g; # Remove HTTP URI
     $text =~ s!\(C\)!!gi; # Copyright mark
     $text =~ s/\s+/ /gs;
-    $text =~ s/[()\@,;"\/.]+/ /gs;     # Remove punctuation
+    $text =~ s/[()\,;"\/.]+/ /gs;     # Remove punctuation
 
     return $text;
 }

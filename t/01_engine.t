@@ -88,3 +88,6 @@ Copyright 2009-2011 Tatsuhiko Miyagawa
 Masahiro Nagano <kazeburo {at} gmail.com>
 IT'S ENTERTAINMENT!
 If you want to use plugin under the 'Karas::Plugin::Name' namespace, you just write 'Name' part.
+Show @args
+$db->{connect_info}
+:Str
