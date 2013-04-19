@@ -119,6 +119,10 @@ sub check_word {
     return 1 if $word =~ /\A(.*)'d\z/ && $self->check_word($1);
     # Perl-ish
     return 1 if $word =~ /\A(.*)-ish\z/ && $self->check_word($1);
+    # {at}
+    return 1 if $word =~ /\A\{(.*)\}\z/ && $self->check_word($1);
+    # com>
+    return 1 if $word =~ /\A(.*)>\z/ && $self->check_word($1);
 
     # comE<gt>
     ## Prefixes

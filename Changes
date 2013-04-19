@@ -2,6 +2,15 @@ Revision history for Perl extension Spellunker
 
 {{$NEXT}}
 
+v0.0.13 2013-04-19T09:28:56Z
+
+    - Allow capitalized word
+    - Allow \0 \1
+    - Allow non alphabetical word
+    - Allow "*-ish"
+    - Allow perl5 class names.
+    - Add more stopword
+
 v0.0.12 2013-04-19T00:31:09Z
 
     - Ignore string looks like command line options
