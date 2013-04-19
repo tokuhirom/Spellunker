@@ -113,6 +113,8 @@ sub check_word {
     return 1 if $word =~ /\A(.*)n't\z/ && $self->check_word($1);
     # You'd
     return 1 if $word =~ /\A(.*)'d\z/ && $self->check_word($1);
+    # Perl-ish
+    return 1 if $word =~ /\A(.*)-ish\z/ && $self->check_word($1);
 
     ## Prefixes
     return 1 if $word =~ /\Anon-(.*)\z/ && $self->check_word($1);

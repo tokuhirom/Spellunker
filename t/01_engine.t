@@ -80,3 +80,5 @@ XD
 --no-configure
 Test::TCP->new(%args);
 Test::TCP
+Perl-ish
+OO-ish
