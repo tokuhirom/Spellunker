@@ -430,3 +430,5 @@ sudo
 LiBot
 sftp
 DBIx
+minimalistic
+plugin
