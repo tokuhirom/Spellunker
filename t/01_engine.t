@@ -12,13 +12,6 @@ my $engine = Spellunker->new();
 ok $engine->{stopwords}->{"'s"} or die;
 ok $engine->check_word("'s") or die;
 
-ok Spellunker::_is_perl_code('Spellunker->new');
-ok Spellunker::_is_perl_code('Spell::unker->new');
-ok Spellunker::_is_perl_code('$foo->new');
-ok Spellunker::_is_perl_code('$foo->new()');
-ok Spellunker::_is_perl_code('$foo->new(3)');
-ok Spellunker::_is_perl_code('$foo{bar}');
-
 # use Data::Dumper; die Dumper($engine->check_line('Spellunker->new'));
 
 for (qw(good How darken lived studies How AUTHORS Dan's 19xx 2xx remove_header RFC IETF)) {
@@ -32,7 +25,6 @@ is(0+$engine->check_line("# What I think"), 0, 'Ignore Markdown-ish header');
 is(0+$engine->check_line("You _know_ it"), 0, 'Plain text mark up');
 is(0+$engine->check_line("You *know* it"), 0, 'Plain text mark up');
 is(0+$engine->check_line("It isn't"), 0, 'short hand');
-is(0+$engine->check_line("You can pass a %args."), 0, 'short hand');
 is(0+$engine->check_line('Use \%hashref'), 0, 'hashref');
 is(0+$engine->check_line('Use \@val'), 0, 'array');
 is(0+$engine->check_line("You can't"), 0, "can't");
@@ -94,3 +86,8 @@ $db->{connect_info}
 #perl-qa
 #amon
 $JSON::SkipInvalid
+You can pass a %args.
+.7z file
+.tar file
+.jpeg file
+pod-spell.t
