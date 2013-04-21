@@ -132,8 +132,11 @@ sub check_word {
     return 1 if $word =~ /\Anon-(.*)\z/ && $self->check_word($1);
     return 1 if $word =~ /\Are-(.*)\z/ && $self->check_word($1);
 
-    # :Str
-    return 1 if $word =~ /\A:(#.*)\z/ && $self->check_word($1);
+    # :Str - Moose-ish type definition
+    return 1 if $word =~ /\A
+        :
+        (?:[A-Z][a-z]+)+
+    \z/x;
 
     # IRC channel name
     return 1 if $word =~ /\A#[a-z0-9-]+\z/;
@@ -200,7 +203,14 @@ sub _is_perl_code {
     # Class name
     # Foo::Bar
     return 1 if $_[0] =~ /\A
+        \$?
         (?: $PERL_NAME :: )+
+        $PERL_NAME
+    \z/x;
+
+    # $foo
+    return 1 if $_[0] =~ /\A
+        \$
         $PERL_NAME
     \z/x;
 

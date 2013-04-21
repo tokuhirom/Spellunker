@@ -93,3 +93,4 @@ $db->{connect_info}
 :Str
 #perl-qa
 #amon
+$JSON::SkipInvalid
