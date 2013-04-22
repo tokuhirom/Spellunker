@@ -4,7 +4,7 @@ use warnings FATAL => 'all';
 use utf8;
 use 5.008001;
 
-use version; our $VERSION = version->declare("v0.0.13");
+use version; our $VERSION = version->declare("v0.0.14");
 
 use File::Spec ();
 use File::ShareDir ();
@@ -139,11 +139,14 @@ sub check_word {
     # com>
     # following:
     return 1 if $word =~ /\A(.*)[>:]\z/ && $self->check_word($1);
+    return 1 if $word =~ /\A(.*)\.+\z/ && $self->check_word($1);
 
     # comE<gt>
     ## Prefixes
     return 1 if $word =~ /\Anon-(.*)\z/ && $self->check_word($1);
     return 1 if $word =~ /\Are-(.*)\z/ && $self->check_word($1);
+    # +MyApp::Plugin::FooBar
+    return 1 if $word =~ /\A\+(.*)\z/ && $self->check_word($1);
 
     # :Str - Moose-ish type definition
     return 1 if $word =~ /\A

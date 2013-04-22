@@ -433,4 +433,10 @@ DBIx
 minimalistic
 plugin
 :p
+:P
+FetchHashKeyName
 doy
+AAJKLFJEF@ # tokuhirom's spam defender
+url
+uri
+camelize
