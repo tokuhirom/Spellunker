@@ -505,3 +505,7 @@ yacc
 nroff
 brian
 lvalue
+craftworks
+tomi-ru
+nekokak
+regexp
