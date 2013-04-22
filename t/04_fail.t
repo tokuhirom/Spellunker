@@ -5,6 +5,8 @@ use Test::More;
 use Spellunker;
 use Data::Dumper;
 
+BEGIN { $ENV{PERL_SPELLUNKER_NO_USER_DICT} = 1 }
+
 my $spellunker = Spellunker->new();
 while (<DATA>) {
     next unless /\S/;
