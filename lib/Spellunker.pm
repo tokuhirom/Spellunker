@@ -245,7 +245,7 @@ sub looks_like_perl_code {
         $PERL_NAME
         \(
             \s*
-            ( \$ $PERL_NAME , )*
+            ( \$ $PERL_NAME \s* , \s*  )*
             ( \$ $PERL_NAME )?
             \s*
         \)
