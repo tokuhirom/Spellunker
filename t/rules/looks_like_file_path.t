@@ -10,7 +10,9 @@ for (
     '~foo/',
     '~/bar',
     '~/bar/',
-    '~/bar/baz'
+    '~/bar/baz',
+    '/dev/tty',
+    't/00_compile.t',
 ) {
     ok Spellunker::looks_like_file_path($_), $_;
 }

@@ -74,6 +74,8 @@ sub check_word {
 
     # 19xx 2xx
     return 1 if $word =~ /^[0-9]+(xx|yy)$/;
+    # 4th
+    return 1 if $word =~ /^[0-9]+(th)$/;
 
     # Method name
     return 1 if $word =~ /\A([a-zA-Z0-9]+_)+[a-zA-Z0-9]+\z/;
@@ -91,7 +93,8 @@ sub check_word {
     # Ignore capital letter words like RT, RFC, IETF.
     # And so "IT'S" should be allow.
     # AUTHORS
-    return 1 if $word =~ /\A[A-Z']+\z/;
+    # APIs
+    return 1 if $word =~ /\A [A-Z']+ s? \z/x;
 
     # good
     return 1 if $self->{stopwords}->{$word};
@@ -100,6 +103,11 @@ sub check_word {
     # 'How'
     # Dan
     if ($word =~ /\A[A-Z][a-z]+\z/) {
+        return 1;
+    }
+
+    # CamelCase-ed word like "McCamant"
+    if ($word =~ /\A [A-Z][a-z]+ (?:[A-Z][a-z]+)+ \z/x) {
         return 1;
     }
 
@@ -135,7 +143,13 @@ sub check_word {
     # IRC channel name
     return 1 if $word =~ /\A#[a-z0-9-]+\z/;
 
-    my $symbols = quotemeta q!:{}._(),;"'+-/><\\!;
+    my $symbols = quotemeta q!$:{}._(),;"'+-/><\\!;
+
+    # Suffix
+    return 1 if $word =~ /\A(.*)[$symbols]\z/ && $self->check_word($1);
+    # Prefix
+    return 1 if $word =~ /\A[$symbols](.*)\z/ && $self->check_word($1);
+
     if ($word =~ /[$symbols]+/) {
         my @words = split /[$symbols]+/, $word;
         my $ok = 0;
@@ -156,8 +170,16 @@ sub looks_like_file_path {
     # ~/
     # ~/foo/
     # ~foo/
+    # /dev/tty
+    # t/01_simple.t
     return 1 if $word =~ m{\A
-        ~ [a-zA-Z0-9]* / (?: [a-z0-9A-Z]+ / )* (?: [a-z0-9A-Z]+ )?
+        (?:
+            ~ [a-zA-Z0-9_.-]* / (?: [a-z0-9A-Z_.-]+ / )* (?: [a-z0-9A-Z_.-]+ )?
+        |
+            / (?: [a-z0-9A-Z_.-]+ / )* (?: [a-z0-9A-Z_.]+ )?
+        |
+            (?: [a-z0-9A-Z_.-]+ / )+ (?: [a-z0-9A-Z_.]+ )?
+        )
     \z}x;
     return 0;
 }
