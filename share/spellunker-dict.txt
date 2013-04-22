@@ -450,3 +450,5 @@ moe
 jsonToObj
 objToJson
 NaN
+iso-8859-1
+\uXXXX
