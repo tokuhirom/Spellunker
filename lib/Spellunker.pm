@@ -158,8 +158,9 @@ sub check_word {
     # IRC channel name
     return 1 if $word =~ /\A#[a-z0-9-]+\z/;
 
-    if ($word =~ /[\+-\/><]+/) {
-        my @words = split /[\+-\/><]+/, $word;
+    my $symbols = quotemeta q!(),;"'+-/><\\!;
+    if ($word =~ /[$symbols]+/) {
+        my @words = split /[$symbols]+/, $word;
         my $ok = 0;
         for (@words) {
             if ($self->check_word($_)) {
@@ -225,16 +226,31 @@ sub looks_like_perl_code {
 
     # Class name
     # Foo::Bar
+    # JSON::PP::
     return 1 if $_[0] =~ /\A
         \$?
         (?: $PERL_NAME :: )+
         $PERL_NAME
+        $PERL_NAME?
     \z/x;
 
     # 5.8.x
     # 5.10.x
     return 1 if $_[0] =~ /\A
         [0-9]+\.[0-9]+\.x
+    \z/x;
+
+    # U+002F
+    return 1 if $_[0] =~ /\A
+        U \+ [0-9a-fA-F]{4,}
+    \z/x;
+
+    # \x00-\x1f\x22\x2f\x5c
+    # \x2f
+    return 1 if $_[0] =~ /\A
+        (
+            \\ x [0-9a-fA-F][0-9a-fA-F] -?
+        )+
     \z/x;
 
     # $foo
@@ -286,7 +302,6 @@ sub _clean_text {
     $text =~ s!$RE{URI}{HTTP}!!g; # Remove HTTP URI
     $text =~ s!\(C\)!!gi; # Copyright mark
     $text =~ s/\s+/ /gs;
-    $text =~ s/[()\,;"]+/ /gs;     # Remove punctuation
 
     return $text;
 }

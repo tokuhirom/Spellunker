@@ -440,9 +440,13 @@ AAJKLFJEF@ # tokuhirom's spam defender
 url
 uri
 camelize
+camelized
 ithreads
 innerHTML
 CSS3
 hoge
 fuga
 moe
+jsonToObj
+objToJson
+NaN
