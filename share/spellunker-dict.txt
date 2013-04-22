@@ -443,3 +443,6 @@ camelize
 ithreads
 innerHTML
 CSS3
+hoge
+fuga
+moe

@@ -145,8 +145,9 @@ sub check_word {
     ## Prefixes
     return 1 if $word =~ /\Anon-(.*)\z/ && $self->check_word($1);
     return 1 if $word =~ /\Are-(.*)\z/ && $self->check_word($1);
-    # +MyApp::Plugin::FooBar
-    return 1 if $word =~ /\A\+(.*)\z/ && $self->check_word($1);
+
+    # <p></p>
+    return 1 if $word =~ /\A<p>(.*)<\/p>\z/ && $self->check_word($1);
 
     # :Str - Moose-ish type definition
     return 1 if $word =~ /\A
@@ -157,8 +158,8 @@ sub check_word {
     # IRC channel name
     return 1 if $word =~ /\A#[a-z0-9-]+\z/;
 
-    if ($word =~ /-/) {
-        my @words = split /-/, $word;
+    if ($word =~ /[\+-\/><]+/) {
+        my @words = split /[\+-\/><]+/, $word;
         my $ok = 0;
         for (@words) {
             if ($self->check_word($_)) {
@@ -187,7 +188,7 @@ sub check_line {
     return unless defined $line;
 
     my @bad_words;
-    for ( grep /\S/, split /[~\|*=\[\]\/`"< \t,()?;!]+/, $line) {
+    for ( grep /\S/, split /[~\|*=\[\]`" \t,()?;!]+/, $line) {
         s/\n//;
 
         if (/\A'(.*)'\z/) {
@@ -228,6 +229,12 @@ sub looks_like_perl_code {
         \$?
         (?: $PERL_NAME :: )+
         $PERL_NAME
+    \z/x;
+
+    # 5.8.x
+    # 5.10.x
+    return 1 if $_[0] =~ /\A
+        [0-9]+\.[0-9]+\.x
     \z/x;
 
     # $foo
@@ -279,7 +286,7 @@ sub _clean_text {
     $text =~ s!$RE{URI}{HTTP}!!g; # Remove HTTP URI
     $text =~ s!\(C\)!!gi; # Copyright mark
     $text =~ s/\s+/ /gs;
-    $text =~ s/[()\,;"\/]+/ /gs;     # Remove punctuation
+    $text =~ s/[()\,;"]+/ /gs;     # Remove punctuation
 
     return $text;
 }
