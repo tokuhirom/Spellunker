@@ -93,11 +93,6 @@ sub check_word {
     # AUTHORS
     return 1 if $word =~ /\A[A-Z']+\z/;
 
-    # "foo" - quoted word
-    if (my ($body) = ($word =~ /\A"(.+)"\z/)) {
-        return $self->check_word($body);
-    }
-
     # good
     return 1 if $self->{stopwords}->{$word};
 
