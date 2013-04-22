@@ -101,3 +101,6 @@ you can redistribute it and/or modify
 JSON::PP::
 U+002F
 \x00-\x1f\x22\x2f\x5c
+~/lib/perl5
+~/tmp/lib/perl5
+PERL5LIB

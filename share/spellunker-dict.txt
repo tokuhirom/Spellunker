@@ -452,3 +452,5 @@ objToJson
 NaN
 iso-8859-1
 \uXXXX
+PERL5LIB
+iso-2022-jp

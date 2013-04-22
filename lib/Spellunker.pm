@@ -67,6 +67,7 @@ sub check_word {
     return 0 unless defined $word;
 
     return 1 if looks_like_perl_code($word);
+    return 1 if looks_like_file_path($word);
 
     return 1 if length($word)==0;
     return 1 if length($word)==1;
@@ -173,6 +174,18 @@ sub check_word {
     return 0;
 }
 
+sub looks_like_file_path {
+    my ($word) = @_;
+
+    # ~/
+    # ~/foo/
+    # ~foo/
+    return 1 if $word =~ m{\A
+        ~ [a-zA-Z0-9]* / (?: [a-z0-9A-Z]+ / )* (?: [a-z0-9A-Z]+ )?
+    \z}x;
+    return 0;
+}
+
 sub looks_like_domain {
     my ($self, $word) = @_;
     return 1 if $word =~ /\A
@@ -189,7 +202,7 @@ sub check_line {
     return unless defined $line;
 
     my @bad_words;
-    for ( grep /\S/, split /[~\|*=\[\]`" \t,()?;!]+/, $line) {
+    for ( grep /\S/, split /[\|*=\[\]`" \t,()?;!]+/, $line) {
         s/\n//;
 
         if (/\A'(.*)'\z/) {
