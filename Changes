@@ -2,6 +2,10 @@ Revision history for Perl extension Spellunker
 
 {{$NEXT}}
 
+v0.0.15 2013-04-22T14:14:20Z
+
+    - Better symbol handling
+
 v0.0.14 2013-04-22T09:15:16Z
 
     - Lots of ignoring rules enhancements
