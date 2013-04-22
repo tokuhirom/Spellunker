@@ -66,9 +66,6 @@ sub check_word {
     my ($self, $word) = @_;
     return 0 unless defined $word;
 
-    return 1 if looks_like_perl_code($word);
-    return 1 if looks_like_file_path($word);
-
     return 1 if length($word)==0;
     return 1 if length($word)==1;
 
@@ -87,7 +84,9 @@ sub check_word {
     # File name
     return 1 if $word =~ /\A[a-zA-Z0-9-]+\.[a-zA-Z0-9]{1,4}\z/;
 
-    return 1 if $self->looks_like_domain($word);
+    return 1 if looks_like_domain($word);
+    return 1 if looks_like_perl_code($word);
+    return 1 if looks_like_file_path($word);
 
     # Ignore capital letter words like RT, RFC, IETF.
     # And so "IT'S" should be allow.
@@ -169,7 +168,7 @@ sub looks_like_file_path {
 }
 
 sub looks_like_domain {
-    my ($self, $word) = @_;
+    my ($word) = @_;
     return 1 if $word =~ /\A
         ([a-zA-Z0-9]([a-zA-Z0-9\-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,6}
     \z/x;
