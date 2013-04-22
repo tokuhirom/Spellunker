@@ -112,3 +112,4 @@ APIs
 4th
 xt/01_spell.t
 Stephen McCamant, and Gurusamy Sarathy.
+delsp($x)

@@ -17,6 +17,9 @@ my @SRC = (
    '\$args',
    '*args',
    '+MyApp::Plugin::FooBar',
+   'foo()',
+   'foo($x)',
+   'foo($x, $y)',
 );
 
 for (@SRC) {

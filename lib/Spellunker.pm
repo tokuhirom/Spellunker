@@ -17,6 +17,8 @@ my $MAIL_REGEX = (
     q{)*}
 );
 
+my $SYMBOLS = quotemeta q!$:{}._(),;"'+-/><\\!;
+
 sub new {
     my $class = shift;
     my %args = @_==1 ? %{$_[0]} : @_;
@@ -143,15 +145,13 @@ sub check_word {
     # IRC channel name
     return 1 if $word =~ /\A#[a-z0-9-]+\z/;
 
-    my $symbols = quotemeta q!$:{}._(),;"'+-/><\\!;
-
     # Suffix
-    return 1 if $word =~ /\A(.*)[$symbols]\z/ && $self->check_word($1);
+    return 1 if $word =~ /\A(.*)[$SYMBOLS]\z/ && $self->check_word($1);
     # Prefix
-    return 1 if $word =~ /\A[$symbols](.*)\z/ && $self->check_word($1);
+    return 1 if $word =~ /\A[$SYMBOLS](.*)\z/ && $self->check_word($1);
 
-    if ($word =~ /[$symbols]+/) {
-        my @words = split /[$symbols]+/, $word;
+    if ($word =~ /[$SYMBOLS]+/) {
+        my @words = split /[$SYMBOLS]+/, $word;
         my $ok = 0;
         for (@words) {
             if ($self->check_word($_)) {
@@ -200,7 +200,7 @@ sub check_line {
     $line =~ s!$RE{URI}{HTTP}!!g;           # Remove HTTP URI
 
     my @bad_words;
-    for ( grep /\S/, split /[\|*=\[\]`" \t,()?;!]+/, $line) {
+    for ( grep /\S/, split /[\|*=\[\]`" \t,?;!]+/, $line) {
         s/\n//;
 
         if (/\A'(.*)'\z/) {
@@ -238,6 +238,17 @@ sub looks_like_perl_code {
         (?: $PERL_NAME :: )+
         $PERL_NAME
         $PERL_NAME?
+    \z/x;
+
+    # foo()
+    return 1 if $_[0] =~ /\A
+        $PERL_NAME
+        \(
+            \s*
+            ( \$ $PERL_NAME , )*
+            ( \$ $PERL_NAME )?
+            \s*
+        \)
     \z/x;
 
     # 5.8.x
