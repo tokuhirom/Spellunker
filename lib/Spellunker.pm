@@ -196,8 +196,8 @@ sub check_line {
     my ($self, $line) = @_;
     return unless defined $line;
 
-    $line =~ s!<$MAIL_REGEX>|$MAIL_REGEX!!; # Remove E-mail address.
-    $line =~ s!$RE{URI}{HTTP}!!g;           # Remove HTTP URI
+    $line =~ s!<$MAIL_REGEX>|$MAIL_REGEX!!;            # Remove E-mail address.
+    $line =~ s!$RE{URI}{HTTP}{-scheme => 'https?'}!!g; # Remove HTTPS? URI
 
     my @bad_words;
     for ( grep /\S/, split /[\|*=\[\]`" \t,?;!]+/, $line) {

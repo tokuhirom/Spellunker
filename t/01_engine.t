@@ -113,3 +113,5 @@ APIs
 xt/01_spell.t
 Stephen McCamant, and Gurusamy Sarathy.
 delsp($x)
+http://github.com/tokuhirom/Spellunker2
+https://github.com/tokuhirom/Spellunker2
