@@ -509,3 +509,4 @@ craftworks
 tomi-ru
 nekokak
 regexp
+gfuji
