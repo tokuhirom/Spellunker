@@ -2,6 +2,11 @@ Revision history for Perl extension Spellunker
 
 {{$NEXT}}
 
+v0.0.17 2013-04-23T01:12:48Z
+
+    - Ignore Perl function call
+    - more stopwords
+
 v0.0.16 2013-04-22T23:01:58Z
 
     - Added some stopwords

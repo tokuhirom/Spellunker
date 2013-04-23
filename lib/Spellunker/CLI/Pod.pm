@@ -7,7 +7,7 @@ use Spellunker::Pod;
 use Term::ANSIColor qw(colored);
 require Win32::Console::ANSI if $^O eq 'MSWin32';
 
-use version; our $VERSION = version->declare("v0.0.16");
+use version; our $VERSION = version->declare("v0.0.17");
 
 sub new {
     my $class = shift;

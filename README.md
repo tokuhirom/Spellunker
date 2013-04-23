@@ -33,6 +33,10 @@ If you want to use this spelling checker in test script, you can use [Test::Spel
 
 You can put your personal dictionary at `$HOME/.spellunker.en`.
 
+# WHY DOES SPELLUNKER NOT IGNORE PERL CODE?
+
+In some case, Spellunker does not ignore the perl code. You need to wrap it by `` ``.
+
 # LICENSE
 
 Copyright (C) tokuhirom

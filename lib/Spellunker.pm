@@ -4,7 +4,7 @@ use warnings FATAL => 'all';
 use utf8;
 use 5.008001;
 
-use version; our $VERSION = version->declare("v0.0.16");
+use version; our $VERSION = version->declare("v0.0.17");
 
 use File::Spec ();
 use File::ShareDir ();
@@ -354,6 +354,10 @@ Check the text and returns bad word list.
 =head1 HOW DO I USE CUSTOM DICTIONARY?
 
 You can put your personal dictionary at C<$HOME/.spellunker.en>.
+
+=head1 WHY DOES SPELLUNKER NOT IGNORE PERL CODE?
+
+In some case, Spellunker does not ignore the perl code. You need to wrap it by C<< C< > >>.
 
 =head1 LICENSE
 
