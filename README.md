@@ -41,6 +41,10 @@ You can put your personal dictionary at `$HOME/.spellunker.en`.
 
 In some case, Spellunker does not ignore the perl code. You need to wrap it by `` ``.
 
+# CONTRIBUTION
+
+You can send me pull-request on github
+
 # LICENSE
 
 Copyright (C) tokuhirom
