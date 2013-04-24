@@ -49,11 +49,12 @@ sub load_dictionary {
     my ($self, $filename) = @_;
     open my $fh, '<:utf8', $filename
         or die "Cannot open '$filename' for reading: $!";
-    while (defined(my $line = <$fh>)) {
-        chomp $line;
-        $line =~ s/\s*#.*$//; # remove comments.
-        $self->add_stopwords(split /\s+/, $line);
-    }
+
+    local $/;
+    my $chunk = <$fh>;
+    $chunk =~ s/#.*$//g; # remove comments.
+
+    $self->add_stopwords(split ' ', $chunk);
 }
 
 sub add_stopwords {
