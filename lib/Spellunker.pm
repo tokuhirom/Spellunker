@@ -60,8 +60,7 @@ sub load_dictionary {
 
     local $/;
     my $chunk = <$fh>;
-    $chunk =~ s/#.*$//g; # remove comments.
-
+    $chunk =~ s/\#[^\n]*$//xmsg; # remove comments.
     $self->add_stopwords(split ' ', $chunk);
 }
 
