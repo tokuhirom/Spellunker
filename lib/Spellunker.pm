@@ -4,7 +4,7 @@ use warnings FATAL => 'all';
 use utf8;
 use 5.008001;
 
-use version; our $VERSION = version->declare("v0.0.17");
+use version; our $VERSION = version->declare("v0.1.0");
 
 use File::Spec ();
 use File::ShareDir ();

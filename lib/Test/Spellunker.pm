@@ -7,7 +7,7 @@ use Spellunker::Pod;
 
 use parent qw(Exporter);
 
-use version; our $VERSION = version->declare("v0.0.17");
+use version; our $VERSION = version->declare("v0.1.0");
 
 use Test::Builder;
 use File::Spec;
