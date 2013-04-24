@@ -1,12 +1,14 @@
 use strict;
 use warnings;
 use utf8;
+use open ':std', ':encoding(utf8)';
 use Test::More;
 
 use Spellunker;
 use Data::Dumper;
 
 BEGIN { $ENV{PERL_SPELLUNKER_NO_USER_DICT} = 1 }
+
 
 my $engine = Spellunker->new();
 ok $engine->{stopwords}->{"'s"} or die;
@@ -116,3 +118,4 @@ delsp($x)
 http://github.com/tokuhirom/Spellunker2
 https://github.com/tokuhirom/Spellunker2
 ua
+正しいXHTMLで書けばこれらの問題は起こりません

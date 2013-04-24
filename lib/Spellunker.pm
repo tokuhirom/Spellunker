@@ -18,7 +18,6 @@ my $MAIL_REGEX = (
     q{)*}
 );
 
-my $SYMBOLS = quotemeta q!$:{}._(),;"'+-/><\\!;
 
 sub new {
     my $class = shift;
@@ -154,12 +153,12 @@ sub check_word {
     return 1 if $word =~ /\A#[a-z0-9-]+\z/;
 
     # Suffix
-    return 1 if $word =~ /\A(.*)[$SYMBOLS]\z/ && $self->check_word($1);
+    return 1 if $word =~ /\A(.*)[^A-Za-z]\z/ && $self->check_word($1);
     # Prefix
-    return 1 if $word =~ /\A[$SYMBOLS](.*)\z/ && $self->check_word($1);
+    return 1 if $word =~ /\A[^A-Za-z](.*)\z/ && $self->check_word($1);
 
-    if ($word =~ /[$SYMBOLS]+/) {
-        my @words = split /[$SYMBOLS]+/, $word;
+    if ($word =~ /[^A-Za-z]+/) {
+        my @words = split /[^A-Za-z]+/, $word;
         my $ok = 0;
         for (@words) {
             if ($self->check_word($_)) {
