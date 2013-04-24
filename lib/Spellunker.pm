@@ -371,6 +371,10 @@ You can put your personal dictionary at C<$HOME/.spellunker.en>.
 
 In some case, Spellunker does not ignore the perl code. You need to wrap it by C<< C< > >>.
 
+=head1 CONTRIBUTION
+
+You can send me pull-request on github
+
 =head1 LICENSE
 
 Copyright (C) tokuhirom
