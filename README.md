@@ -17,6 +17,10 @@ If you want to use this spelling checker in test script, you can use [Test::Spel
 
     Create new instance.
 
+- $spellunker->load\_dictionary($filename\_or\_fh)
+
+    Loads stopwords from `$filename_or_fh` and adds them to the on-memory dictionary.
+
 - $spellunker->add\_stopwords(@stopwords)
 
     Add some `@stopwords` to the on memory dictionary.

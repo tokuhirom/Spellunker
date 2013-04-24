@@ -2,6 +2,13 @@ Revision history for Perl extension Spellunker
 
 {{$NEXT}}
 
+v0.2.1 2013-04-24T01:30:17Z
+
+    - allow load_dictionary($fh) to read words from *DATA
+      (Goro Fuji)
+    - slurp dictionaries for performance
+      (Fuji Goro)
+
 v0.1.0 2013-04-24T00:02:44Z
 
     - More stopwords.

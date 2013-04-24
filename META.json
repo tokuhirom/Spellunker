@@ -70,9 +70,10 @@
          "web" : "https://github.com/tokuhirom/Spellunker"
       }
    },
-   "version" : "v0.1.0",
+   "version" : "v0.2.1",
    "x_contributors" : [
       "David Steinbrunner <dsteinbrunner@pobox.com>",
-      "Kentaro Kuribayashi <kentarok@gmail.com>"
+      "Kentaro Kuribayashi <kentarok@gmail.com>",
+      "Fuji, Goro <g.psy.va@gmail.com>"
    ]
 }
