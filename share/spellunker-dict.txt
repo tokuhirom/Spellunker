@@ -510,3 +510,13 @@ tomi-ru
 nekokak
 regexp
 gfuji
+aliased
+builtin
+uninitialized
+accessors
+iterators
+substring
+bareword
+barewords
+bytecode
+opcode
