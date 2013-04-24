@@ -18,6 +18,7 @@ our @EXPORT = qw(
   pod_file_spelling_ok
   all_pod_files_spelling_ok
   add_stopwords
+  load_dictionary
 );
 
 my $TEST = Test::Builder->new();
@@ -112,8 +113,13 @@ sub pod_file_spelling_ok {
 }
 
 sub add_stopwords {
-    $SPELLUNKER->add_stopwords(@_)
+    $SPELLUNKER->add_stopwords(@_);
 }
+
+sub load_dictionary {
+    $SPELLUNKER->load_dictionary(@_);
+}
+
 
 1;
 __END__
@@ -192,6 +198,10 @@ Add words that should be skipped by the spellcheck. Note that
 Pod::Spell already skips words believed to be code, such as everything
 in verbatim (indented) blocks and code marked up with ""..."", as well
 as some common Perl jargon.
+
+=item load_dictionary($filename_or_fh)
+
+Load stopwords from C<$filename_or_fh>. You may want to use it as C<< load_dictionary(\*DATA) >>.
 
 =back
 

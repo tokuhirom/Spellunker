@@ -15,6 +15,11 @@ sub add_stopwords {
     $self->{spellunker}->add_stopwords(@_);
 }
 
+sub load_dictionary {
+    my $self = shift;
+    $self->{spellunker}->load_dictionary(@_);
+}
+
 sub _check_parser {
     my ($self, $parser) = @_;
 
