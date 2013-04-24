@@ -2,6 +2,11 @@ Revision history for Perl extension Spellunker
 
 {{$NEXT}}
 
+v0.2.3 2013-04-24T10:11:05Z
+
+    - Ignore multi byte characters
+      (tokuhirom)
+
 v0.2.2 2013-04-24T06:06:11Z
 
     - add load_dictionary() to Test::Spellunker and Spellunker::Pod
