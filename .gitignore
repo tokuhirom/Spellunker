@@ -13,3 +13,5 @@
 !Build/
 !META.json
 /Spellunker-*
+blib
+MYMETA.*
