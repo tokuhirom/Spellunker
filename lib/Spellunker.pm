@@ -57,11 +57,11 @@ sub load_dictionary {
         open $fh, '<:utf8', $filename_or_fh
             or die "Cannot open '$filename_or_fh' for reading: $!";
     }
-    while (defined(my $line = <$fh>)) {
-        chomp $line;
-        $line =~ s/\s*#.*$//; # remove comments.
-        $self->add_stopwords(split /\s+/, $line);
-    }
+
+    local $/;
+    my $chunk = <$fh>;
+    $chunk =~ s/\#[^\n]*$//xmsg; # remove comments.
+    $self->add_stopwords(split ' ', $chunk);
 }
 
 sub add_stopwords {
