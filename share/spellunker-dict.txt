@@ -510,3 +510,8 @@ tomi-ru
 nekokak
 regexp
 gfuji
+OAuth
+OAuth2
+facebook
+loctouch
+ua
