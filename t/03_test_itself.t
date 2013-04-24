@@ -9,5 +9,10 @@ use Test::Spellunker;
 
 add_stopwords("dankogai");
 
+load_dictionary(\*DATA);
+
 all_pod_files_spelling_ok();
 
+__DATA__
+foo
+bar
