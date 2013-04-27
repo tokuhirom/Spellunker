@@ -527,3 +527,7 @@ loctouch
 ua
 hashrefs
 httpd
+colourful
+segv
+eof
+x-up-devcap-multimedia
