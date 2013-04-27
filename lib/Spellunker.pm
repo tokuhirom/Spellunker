@@ -207,7 +207,7 @@ sub check_line {
     $line =~ s!$RE{URI}{HTTP}{-scheme => 'https?'}!!g; # Remove HTTPS? URI
 
     my @bad_words;
-    for ( grep /\S/, split /[\|*=\[\]`" \t,?;!]+/, $line) {
+    for ( grep /\S/, split /[\|*=\[\]`" \t,?!]+/, $line) {
         s/\n//;
 
         if (/\A'(.*)'\z/) {

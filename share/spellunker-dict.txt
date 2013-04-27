@@ -531,3 +531,5 @@ colourful
 segv
 eof
 x-up-devcap-multimedia
+&apos;
+big-endian
