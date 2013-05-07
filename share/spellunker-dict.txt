@@ -241,6 +241,7 @@ subclasses
 subdirectories
 subdirectory
 subobjects
+submodules
 symlinked
 terminal's
 timestamp
