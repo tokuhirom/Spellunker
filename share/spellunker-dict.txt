@@ -535,3 +535,4 @@ x-up-devcap-multimedia
 &apos;
 big-endian
 autobox
+bool
