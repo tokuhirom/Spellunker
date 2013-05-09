@@ -2,6 +2,10 @@ Revision history for Perl extension Spellunker
 
 {{$NEXT}}
 
+v0.2.6 2013-05-09T01:27:01Z
+
+    - Added more stopwords.
+
 v0.2.5 2013-05-07T03:19:25Z
 
     - Added more stopwords.
