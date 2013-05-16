@@ -541,3 +541,4 @@ woremacx
 dailyflower
 libxml
 XPath
+groonga
