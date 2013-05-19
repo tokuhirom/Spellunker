@@ -543,3 +543,5 @@ libxml
 XPath
 groonga
 chroot
+catfile
+catdir
