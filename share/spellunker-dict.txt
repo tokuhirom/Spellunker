@@ -545,3 +545,5 @@ groonga
 chroot
 catfile
 catdir
+mysql
+uid
