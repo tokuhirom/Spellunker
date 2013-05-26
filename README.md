@@ -39,7 +39,7 @@ You can put your personal dictionary at `$HOME/.spellunker.en`.
 
 # WHY DOES SPELLUNKER NOT IGNORE PERL CODE?
 
-In some case, Spellunker does not ignore the perl code. You need to wrap it by `` ``.
+In some case, Spellunker does not ignore the perl code. You need to wrap it by C< >.
 
 # CONTRIBUTION
 
