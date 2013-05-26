@@ -549,3 +549,4 @@ mysql
 uid
 lexer
 goccy
+uninstall
