@@ -2,6 +2,11 @@ Revision history for Perl extension Spellunker
 
 {{$NEXT}}
 
+    - Documentation fixes.
+      (tobyink)
+    - Test "bin" and "script" directories if "blib" does not exist.
+      (tobyink)
+
 v0.2.7 2013-05-19T23:26:17Z
 
     - Added more stopwords.
