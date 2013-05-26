@@ -37,7 +37,7 @@ sub all_pod_files_spelling_ok {
 
 sub _starting_points {
     return 'blib' if -d 'blib';
-    return 'lib';
+    return grep -d, qw(bin lib script);
 }
 
 sub all_pod_files {
