@@ -146,9 +146,9 @@ each file/directory, and declares a "plan" in Test::More for you (one
 test for each file), so you must not call "plan" yourself.
 
 If @files is empty, the function finds all POD files in the blib
-directory if it exists, or the lib directory if it does not. A POD file
-is one that ends with .pod, .pl, .plx, or .pm; or any file where the
-first line looks like a perl shebang line.
+directory; or the lib, bin and scripts directories if blib does not exist.
+A POD file is one that ends with .pod, .pl, .plx, or .pm; or any file
+where the first line looks like a perl shebang line.
 
 If there is no working spellchecker (determined by
 "has_working_spellchecker"), this test will issue a "skip all"
