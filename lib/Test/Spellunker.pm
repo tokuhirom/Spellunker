@@ -24,6 +24,8 @@ our @EXPORT = qw(
 my $TEST = Test::Builder->new();
 
 sub all_pod_files_spelling_ok {
+    local $Test::Builder::Level = $Test::Builder::Level + 1;
+
     my @files = all_pod_files(@_);
 
     $TEST->plan(tests => scalar @files);
