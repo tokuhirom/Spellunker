@@ -4,6 +4,10 @@ Revision history for Perl extension Spellunker
 
     - Show correct test line number if all_pod_files_spelling_ok fails.
       (tobyink)
+    - Documentation fixes.
+      (tobyink)
+    - Test "bin" and "script" directories if "blib" does not exist.
+      (tobyink)
 
 v0.2.7 2013-05-19T23:26:17Z
 
