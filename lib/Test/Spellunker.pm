@@ -150,10 +150,6 @@ directory; or the lib, bin and scripts directories if blib does not exist.
 A POD file is one that ends with .pod, .pl, .plx, or .pm; or any file
 where the first line looks like a perl shebang line.
 
-If there is no working spellchecker (determined by
-"has_working_spellchecker"), this test will issue a "skip all"
-directive.
-
 If you're testing a distribution, just create a t/pod-spell.t with the
 code in the "SYNOPSIS".
 
