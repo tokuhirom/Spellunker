@@ -553,3 +553,4 @@ uninstall
 benchmarking
 hasegawayosuke
 __defineSetter__
+RSpec
