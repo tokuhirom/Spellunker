@@ -2,6 +2,11 @@ Revision history for Perl extension Spellunker
 
 {{$NEXT}}
 
+v0.2.9 2013-06-08T04:48:12Z
+
+    - more stopwords
+      (tokuhirom)
+
 v0.2.8 2013-05-26T23:28:34Z
 
     - Show correct test line number if all_pod_files_spelling_ok fails.
