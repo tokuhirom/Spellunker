@@ -554,3 +554,4 @@ benchmarking
 hasegawayosuke
 __defineSetter__
 RSpec
+htmlspecialchars
