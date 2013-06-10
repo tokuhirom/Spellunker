@@ -120,3 +120,4 @@ https://github.com/tokuhirom/Spellunker2
 ua
 正しいXHTMLで書けばこれらの問題は起こりません
 &apos; bug.
+e495aaaf0b9dcea6bc8bc97d9143a0d7a649fa06

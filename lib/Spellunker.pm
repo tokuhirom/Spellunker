@@ -81,6 +81,9 @@ sub check_word {
     # There is no alphabetical characters.
     return 1 if $word !~ /[A-Za-z]/;
 
+    # git sha1
+    return 1 if $word =~ /\A[a-z0-9]{40}\z/;
+
     # 19xx 2xx
     return 1 if $word =~ /^[0-9]+(xx|yy)$/;
     # 4th
