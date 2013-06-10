@@ -4,7 +4,7 @@
       "tokuhirom <tokuhirom@gmail.com>"
    ],
    "dynamic_config" : 0,
-   "generated_by" : "Minilla/v0.4.7, CPAN::Meta::Converter version 2.130880",
+   "generated_by" : "Minilla/v0.4.9, CPAN::Meta::Converter version 2.130880",
    "license" : [
       "perl_5"
    ],
@@ -70,7 +70,7 @@
          "web" : "https://github.com/tokuhirom/Spellunker"
       }
    },
-   "version" : "v0.2.9",
+   "version" : "v0.3.0",
    "x_contributors" : [
       "David Steinbrunner <dsteinbrunner@pobox.com>",
       "Kentaro Kuribayashi <kentarok@gmail.com>",

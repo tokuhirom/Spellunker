@@ -2,6 +2,13 @@ Revision history for Perl extension Spellunker
 
 {{$NEXT}}
 
+v0.3.0 2013-06-10T07:54:23Z
+
+    - Allow git sha1 hash
+      (tokuhiroM)
+    - more stopwords
+      (tokuhirom)
+
 v0.2.9 2013-06-08T04:48:12Z
 
     - more stopwords
