@@ -2,10 +2,15 @@ Revision history for Perl extension Spellunker
 
 {{$NEXT}}
 
+v0.3.1 2013-09-10T20:02:10Z
+
+    - Fixed too much recursive calls.
+      (Reported from gfx++)
+
 v0.3.0 2013-06-10T07:54:23Z
 
     - Allow git sha1 hash
-      (tokuhiroM)
+      (tokuhirom)
     - more stopwords
       (tokuhirom)
 
