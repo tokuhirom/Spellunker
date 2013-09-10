@@ -562,3 +562,5 @@ app
 OpenID
 optimizable
 hirose31
+zsh
+MetaCPAN
