@@ -66,7 +66,7 @@ sub load_dictionary {
 sub use_dictionary {
     my ($self, $filename_or_fh) = @_;
 
-    undef $self->{stopwords};
+    $self->clear_stopwords();
     $self->load_dictionary($filename_or_fh);
 
     unless ($ENV{PERL_SPELLUNKER_NO_USER_DICT}) {
@@ -80,6 +80,11 @@ sub add_stopwords {
         $self->{stopwords}->{$_}++
     }
     return undef;
+}
+
+sub clear_stopwords {
+    my $self = shift;
+    undef $self->{stopwords};
 }
 
 sub check_word {
@@ -371,6 +376,10 @@ In other words, this method replace a dictionary.
 =item $spellunker->add_stopwords(@stopwords)
 
 Add some C<< @stopwords >> to the on memory dictionary.
+
+=item $spellunker->clear_stopwords();
+
+Crear the information of stop words.
 
 =item $spellunker->check_word($word);
 
