@@ -63,6 +63,17 @@ sub load_dictionary {
     $self->add_stopwords(split ' ', $chunk);
 }
 
+sub use_dictionary {
+    my ($self, $filename_or_fh) = @_;
+
+    undef $self->{stopwords};
+    $self->load_dictionary($filename_or_fh);
+
+    unless ($ENV{PERL_SPELLUNKER_NO_USER_DICT}) {
+        $self->_load_user_dict();
+    }
+}
+
 sub add_stopwords {
     my $self = shift;
     for (@_) {
@@ -350,6 +361,12 @@ Create new instance.
 =item $spellunker->load_dictionary($filename_or_fh)
 
 Loads stopwords from C<$filename_or_fh> and adds them to the on-memory dictionary.
+
+=item $spellunker->use_dictionary($filename_or_fh)
+
+Loads stopwords from C<$filename_or_fh> and adds them to the on-memory dictionary.
+Unlike `load_dictionary`, this method initializes the set of stop words until now.
+In other words, this method replace a dictionary.
 
 =item $spellunker->add_stopwords(@stopwords)
 
