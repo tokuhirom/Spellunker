@@ -63,17 +63,6 @@ sub load_dictionary {
     $self->add_stopwords(split ' ', $chunk);
 }
 
-sub use_dictionary {
-    my ($self, $filename_or_fh) = @_;
-
-    $self->clear_stopwords();
-    $self->load_dictionary($filename_or_fh);
-
-    unless ($ENV{PERL_SPELLUNKER_NO_USER_DICT}) {
-        $self->_load_user_dict();
-    }
-}
-
 sub add_stopwords {
     my $self = shift;
     for (@_) {
