@@ -356,12 +356,6 @@ Create new instance.
 
 Loads stopwords from C<$filename_or_fh> and adds them to the on-memory dictionary.
 
-=item $spellunker->use_dictionary($filename_or_fh)
-
-Loads stopwords from C<$filename_or_fh> and adds them to the on-memory dictionary.
-Unlike `load_dictionary`, this method initializes the set of stop words until now.
-In other words, this method replace a dictionary.
-
 =item $spellunker->add_stopwords(@stopwords)
 
 Add some C<< @stopwords >> to the on memory dictionary.
