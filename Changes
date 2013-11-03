@@ -2,6 +2,11 @@ Revision history for Perl extension Spellunker
 
 {{$NEXT}}
 
+v0.4.0 2013-11-03T09:54:46Z
+
+    - Added clear_stopwords method.
+      (moznion)
+
 v0.3.1 2013-09-10T20:02:10Z
 
     - Fixed too much recursive calls.

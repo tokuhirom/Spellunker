@@ -4,7 +4,7 @@
       "tokuhirom <tokuhirom@gmail.com>"
    ],
    "dynamic_config" : 0,
-   "generated_by" : "Minilla/v0.6.5, CPAN::Meta::Converter version 2.132510",
+   "generated_by" : "Minilla/v0.8.1, CPAN::Meta::Converter version 2.132510",
    "license" : [
       "perl_5"
    ],
@@ -21,7 +21,8 @@
          "share",
          "eg",
          "examples",
-         "author"
+         "author",
+         "builder"
       ]
    },
    "prereqs" : {
@@ -70,12 +71,13 @@
          "web" : "https://github.com/tokuhirom/Spellunker"
       }
    },
-   "version" : "v0.3.1",
+   "version" : "v0.4.0",
    "x_contributors" : [
       "David Steinbrunner <dsteinbrunner@pobox.com>",
       "Kentaro Kuribayashi <kentarok@gmail.com>",
       "Fuji, Goro <g.psy.va@gmail.com>",
       "Tatsuhiko Miyagawa <miyagawa@bulknews.net>",
-      "Toby Inkster <mail@tobyinkster.co.uk>"
+      "Toby Inkster <mail@tobyinkster.co.uk>",
+      "moznion <moznion@gmail.com>"
    ]
 }

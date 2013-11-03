@@ -25,6 +25,10 @@ If you want to use this spelling checker in test script, you can use [Test::Spel
 
     Add some `@stopwords` to the on memory dictionary.
 
+- $spellunker->clear\_stopwords();
+
+    Crear the information of stop words.
+
 - $spellunker->check\_word($word);
 
     Check the word looks good or not.
