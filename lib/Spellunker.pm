@@ -71,6 +71,11 @@ sub add_stopwords {
     return undef;
 }
 
+sub clear_stopwords {
+    my $self = shift;
+    undef $self->{stopwords};
+}
+
 sub check_word {
     my ($self, $word) = @_;
     return 0 unless defined $word;
@@ -354,6 +359,10 @@ Loads stopwords from C<$filename_or_fh> and adds them to the on-memory dictionar
 =item $spellunker->add_stopwords(@stopwords)
 
 Add some C<< @stopwords >> to the on memory dictionary.
+
+=item $spellunker->clear_stopwords();
+
+Crear the information of stop words.
 
 =item $spellunker->check_word($word);
 
